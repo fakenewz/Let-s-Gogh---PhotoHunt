@@ -59,7 +59,7 @@ class Books extends Component {
         <Row>
           <Col size="md-6">
             <Jumbotron>
-              <h1>Let's Gogh Photohunt!</h1>
+              <h1>Column</h1>
             </Jumbotron>
             <form>
               <Input
