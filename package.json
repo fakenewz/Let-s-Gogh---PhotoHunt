@@ -1,5 +1,5 @@
 {
-  "name": "Let-s-Gogh---PhotoHunt",
+  "name": "mern",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -13,26 +13,17 @@
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fakenewz/Let-s-Gogh---PhotoHunt.git"
-  },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/fakenewz/Let-s-Gogh---PhotoHunt/issues"
-  },
   "devDependencies": {
-    "concurrently": "^3.6.0",
-    "nodemon": "^1.17.5"
+    "concurrently": "^3.5.0",
+    "nodemon": "^1.11.0"
   },
-  "homepage": "https://github.com/fakenewz/Let-s-Gogh---PhotoHunt#readme",
   "dependencies": {
     "axios": "^0.16.2",
-    "body-parser": "^1.18.3",
-    "express": "^4.16.3",
-    "if-env": "^1.0.4",
-    "mongoose": "^5.2.2"
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "mongoose": "^5.0.17",
+    "if-env": "^1.0.4"
   }
 }
