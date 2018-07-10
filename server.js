@@ -12,9 +12,16 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-app.use(routes);
+app.use(routes); 
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/photohunt");
+mongoose.Promise = global.Promise;
+
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost/letsgoghphotohunt",
+  {
+    useMongoClient: true
+  }
+);
 
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
