@@ -14,14 +14,7 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(routes); 
 
-mongoose.Promise = global.Promise;
-
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/letsgoghphotohunt",
-  {
-    useMongoClient: true
-  }
-);
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/letsgoghphotohunt");
 
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
