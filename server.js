@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(routes); 
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://heroku_2hn3kv0g:eb8m9l030mu52c5lgopfavgg5k@ds231991.mlab.com:31991/heroku_2hn3kv0g");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/letsgoghphotohunt");
 
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
