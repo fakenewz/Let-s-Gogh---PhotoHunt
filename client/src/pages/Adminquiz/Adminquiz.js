@@ -61,34 +61,6 @@ class Adminquiz extends Component {
             <Jumbotron>
               <h1>Column</h1>
             </Jumbotron>
-            <form>
-              <Input
-                value={this.state.title}
-                onChange={this.handleInputChange}
-                name="title"
-                placeholder="____ (required)"
-              />
-              <Input
-                value={this.state.author}
-                onChange={this.handleInputChange}
-                name="author"
-                placeholder="____ (required)"
-              />
-              <TextArea
-                value={this.state.synopsis}
-                onChange={this.handleInputChange}
-                name="synopsis"
-                placeholder="____ (Optional)"
-              />
-              <FormBtn
-                disabled={!(this.state.author && this.state.title)}
-                onClick={this.handleFormSubmit}
-              >
-                Submit
-              </FormBtn>
-            </form>
-          </Col>
-          <Col size="md-6 sm-12">
             <Jumbotron>
               <h1>Column</h1>
             </Jumbotron>
