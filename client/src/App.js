@@ -15,7 +15,7 @@ const App = () => (
         <Route exact path="/" component={Books} />
         <Route exact path="/books" component={Books} />
         <Route exact path="/admindash" component={Books}/>
-        <Route exact path="/adminquiz" component={Books}/>
+        <Route exact path="/adminquiz" component={Adminquiz}/>
         <Route exact path="/books/:id" component={Detail} />
         <Route component={NoMatch} />
       </Switch>
