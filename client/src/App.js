@@ -6,6 +6,7 @@ import Adminquiz from "./pages/Adminquiz";
 import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
+import Hardcodedquiz from "./components/Hardcodedquiz/Hardcodedquiz";
 
 const App = () => (
   <Router>
