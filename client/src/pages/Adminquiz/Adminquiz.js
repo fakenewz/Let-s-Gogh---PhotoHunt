@@ -126,43 +126,12 @@ class App extends Component {
 
   render() {
     return (
-<<<<<<< HEAD
       <div className="App">
         <div className="App-header">
           <h2>React Quiz</h2>
         </div>
         {this.state.result ? this.renderResult() : this.renderQuiz()}
       </div>
-=======
-      <Container fluid>
-        <Row>
-          <Col size="md-6">
-            <Jumbotron>
-              <h1>Column</h1>
-            </Jumbotron>
-            <Jumbotron>
-              <h1>Column</h1>
-            </Jumbotron>
-            {this.state.quizzes.length ? (
-              <List>
-                {this.state.quizzes.map(book => (
-                  <ListItem key={book._id}>
-                    <Link to={"/Quizzes/" + book._id}>
-                      <strong>
-                        {book.title} by {book.author}
-                      </strong>
-                    </Link>
-                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
-          </Col>
-        </Row>
-      </Container>
->>>>>>> 7e415e119ec127c6f331bdc86ae102d0d2153956
     );
   }
 
