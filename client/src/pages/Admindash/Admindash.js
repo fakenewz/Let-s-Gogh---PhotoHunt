@@ -57,9 +57,9 @@ class Admindash extends Component {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-6">
+          <Col size="md-12">
             <Jumbotron>
-              <h1>Column</h1>
+              <h1>TESTESTESTESTESTESTESTESTSETSETSETSETSETSETSETSETSETSETSETSETSET</h1>
             </Jumbotron>
             <form>
               <Input
@@ -90,7 +90,7 @@ class Admindash extends Component {
           </Col>
           <Col size="md-6 sm-12">
             <Jumbotron>
-              <h1>Column</h1>
+              <h1>Test</h1>
             </Jumbotron>
             {this.state.quizzes.length ? (
               <List>
