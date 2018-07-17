@@ -16,10 +16,10 @@ const App = () => (
     <div>
       <Nav />
       <Switch>
-        <Route exact path="/" component={Books} />
-        <Route exact path="/login" component={Sign_In} />
+        <Route exact path="/" component={Sign_In} />
+        {/* <Route exact path="/login" component={Sign_In} /> */}
         <Route exact path="/register" component={Register} />
-        <Route exact path="/quizcreation" component={Quiz_Creation} />
+        {/* <Route exact path="/quizcreation" component={Quiz_Creation} /> */}
         <Route exact path="/logout" component={Logout} />
         <Route exact path="/admindash" component={Admindash}/>
         <Route exact path="/adminquiz" component={Adminquiz}/>

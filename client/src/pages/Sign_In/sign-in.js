@@ -34,7 +34,7 @@ handleFormSubmit = event => {
     .then(
       res => {
       this.setState({
-        redirectTo: '/quizcreation'
+        redirectTo: '/admindash'
       })
      }
     )
@@ -67,7 +67,7 @@ handleFormSubmit = event => {
         studentID: this.state.studentID,
     })
     .then(() => {
-      this.props.history.push('/quiz')
+      this.props.history.push('/adminquiz')
     }).catch((error) => {
       console.log("blah blah")
       console.log(error)
