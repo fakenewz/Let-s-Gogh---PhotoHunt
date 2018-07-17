@@ -4,7 +4,6 @@ import quizQuestions from '../../utils/quizQuestions';
 import Quiz from '../../components/Quiz/Quiz';
 import Result from '../../components/Quiz/Result';
 
-
 class App extends Component {
 
   constructor(props) {

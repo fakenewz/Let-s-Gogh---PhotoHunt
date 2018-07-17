@@ -9,9 +9,9 @@ import { Input, TextArea, FormBtn } from "../../components/Form";
 
 class Admindash extends Component {
   state = {
-    Quizcode: [],
-    Quiztitle: "",
-    Quizlocation: "",
+    quizcode: [],
+    quiztitle: "",
+    quizlocation: "",
     synopsis: ""
   };
 
@@ -22,13 +22,13 @@ class Admindash extends Component {
   loadQuizzes = () => {
     API.getQuizzes()
       .then(res =>
-        this.setState({ Quizzes: res.data, title: "", author: "", synopsis: "" })
+        this.setState({ quizcode: res.data, quiztitle: "", quizlocation: "", synopsis: "" })
       )
       .catch(err => console.log(err));
   };
 
-  deleteBook = id => {
-    API.deleteBook(id)
+  deleteQuiz = id => {
+    API.deleteQuiz(id)
       .then(res => this.loadQuizzes())
       .catch(err => console.log(err));
   };
@@ -42,10 +42,10 @@ class Admindash extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.title && this.state.author) {
-      API.saveBook({
-        title: this.state.title,
-        author: this.state.author,
+    if (this.state.quiztitle && this.state.quizlocation) {
+      API.saveQuiz({
+        quiztitle: this.state.quiztitle,
+        quizlocation: this.state.quizlocation,
         synopsis: this.state.synopsis
       })
         .then(res => this.loadQuizzes())
@@ -57,21 +57,21 @@ class Admindash extends Component {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-12">
+          <Col size="sm-6">
             <Jumbotron>
-              <h1>TESTESTESTESTESTESTESTESTSETSETSETSETSETSETSETSETSETSETSETSETSET</h1>
+              <h1>TEST</h1>
             </Jumbotron>
             <form>
               <Input
-                value={this.state.title}
+                value={this.state.quiztitle}
                 onChange={this.handleInputChange}
-                name="title"
+                name="quiztitle"
                 placeholder="____ (required)"
               />
               <Input
-                value={this.state.author}
+                value={this.state.quizlocation}
                 onChange={this.handleInputChange}
-                name="author"
+                name="quizlocation"
                 placeholder="____ (required)"
               />
               <TextArea
@@ -81,27 +81,27 @@ class Admindash extends Component {
                 placeholder="____ (Optional)"
               />
               <FormBtn
-                disabled={!(this.state.author && this.state.title)}
+                disabled={!(this.state.quiztitle && this.state.quizlocation)}
                 onClick={this.handleFormSubmit}
               >
                 Submit
               </FormBtn>
             </form>
           </Col>
-          <Col size="md-6 sm-12">
+          <Col size="sm-6">
             <Jumbotron>
-              <h1>Test</h1>
+              <h1>Quiz</h1>
             </Jumbotron>
-            {this.state.quizzes.length ? (
+            {this.state.quizcode.length ? (
               <List>
-                {this.state.quizzes.map(book => (
-                  <ListItem key={book._id}>
-                    <Link to={"/Quizzes/" + book._id}>
+                {this.state.quizcode.map(quizcd => (
+                  <ListItem key={quizcd._id}>
+                    <Link to={"/musuemquiz/" + quizcd._id}>
                       <strong>
-                        {book.title} by {book.author}
+                        {quizcd.quiztitle} and {quizcd.quizlocation}
                       </strong>
                     </Link>
-                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
+                    <DeleteBtn onClick={() => this.deleteQuiz(quizcd._id)} />
                   </ListItem>
                 ))}
               </List>

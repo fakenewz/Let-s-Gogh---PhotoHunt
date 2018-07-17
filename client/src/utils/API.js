@@ -13,10 +13,29 @@ export default {
   deleteCode: function(id) {
     return axios.delete("/quizcreation" + id);
   },
-  // Saves a book to the database
+  // Save
   saveCode: function(quizData) {
     return axios.post("/quizcreation", quizData);
   },
+
+
+  // Get all
+  getQuizzes: function() {
+    return axios.get("/musuemquiz");
+  },
+  // Get for given id
+  getQuiz: function(e) {
+    return axios.get("/musuemquiz" + e);
+  },
+  // Delete
+  deleteQuiz: function(e) {
+    return axios.delete("/musuemquiz" + e);
+  },
+  // Save
+  saveQuiz: function(musuemQuizData) {
+    return axios.post("/musuemquiz", musuemQuizData);
+  },
+
 
   //Homepage
   homePage: function() {

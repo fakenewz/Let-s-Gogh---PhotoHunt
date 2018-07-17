@@ -1,8 +1,8 @@
 const path = require("path");
 const router = require("express").Router();
-const apiRoutes = require("./api");
 var auth = require("../controllers/AuthController.js");
 var codecontroller = require("../controllers/codeController");
+var quizcontroller = require("../controllers/quizController");
 const db = require("../models");
 
 console.log("dfdfd");
@@ -41,9 +41,16 @@ router.get('/quizcreation', codecontroller.findAll);
 
 router.post('/quizcreation', createCode)
 
-router.get('quizcreation/:id', codecontroller.findById);
-router.put('quizcreation/:id', codecontroller.update);
-router.delete('quizcreation/:id', codecontroller.remove);
+router.get('/quizcreation/:id', codecontroller.findById);
+router.put('/quizcreation/:id', codecontroller.update);
+router.delete('/quizcreation/:id', codecontroller.remove);
+
+// Quiz Routes:
+router.get('/musuemquiz', quizcontroller.findAll);
+router.post('/musuemquiz', quizcontroller.create)
+router.get('/musuemquiz/:id', quizcontroller.findById);
+router.put('/musuemquiz/:id', quizcontroller.update);
+router.delete('/musuemquiz/:id', quizcontroller.remove);
 
 
 module.exports = router; 
