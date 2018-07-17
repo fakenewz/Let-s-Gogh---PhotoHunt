@@ -1,20 +1,43 @@
 import axios from "axios";
 
 export default {
-  // Gets all books
-  getBooks: function() {
-    return axios.get("/api/books");
+  // Get all
+  getCodes: function() {
+    return axios.get("/quizcreation");
   },
-  // Gets the book with the given id
-  getBook: function(id) {
-    return axios.get("/api/books/" + id);
+  // Get for given id
+  getCode: function(id) {
+    return axios.get("/quizcreation" + id);
   },
-  // Deletes the book with the given id
-  deleteBook: function(id) {
-    return axios.delete("/api/books/" + id);
+  // Delete
+  deleteCode: function(id) {
+    return axios.delete("/quizcreation" + id);
   },
   // Saves a book to the database
-  saveBook: function(bookData) {
-    return axios.post("/api/books", bookData);
-  }
+  saveCode: function(quizData) {
+    return axios.post("/quizcreation", quizData);
+  },
+
+  //Homepage
+  homePage: function() {
+    return axios.get("/")
+  },
+  //Register
+  signUp: function() {
+    return axios.get("/register")
+  },
+  saveSignUp: function(saveUser) {
+    return axios.post("/register", saveUser)
+  },
+  //Register
+  signIn: function() {
+    return axios.get("/login")
+  },
+  saveSignIn: function(loginUser) {
+      return axios.post("/login", loginUser)
+    },
+  //Register
+  signOut: function() {
+    return axios.get("/logout")
+  },
 };
