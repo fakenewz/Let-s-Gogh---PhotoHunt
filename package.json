@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
-<<<<<<< HEAD
     "body-parser": "^1.17.2",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
@@ -31,8 +30,7 @@
     "mongoose": "^5.0.17",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^5.0.1"
-=======
+    "passport-local-mongoose": "^5.0.1",
     "babel": "^6.23.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
@@ -42,6 +40,5 @@
     "react-addons": "^0.9.1-deprecated",
     "react-addons-css-transition-group": "^15.6.2",
     "react-addons-update": "^15.6.2"
->>>>>>> 6c25dbf0e472039cc89773b170bf55ef8e96cb44
   }
 }
