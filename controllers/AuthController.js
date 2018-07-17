@@ -12,7 +12,7 @@ var userController = {};
       }
   
       passport.authenticate('local')(req, res, function () {
-        res.redirect('/quizcreation');
+        res.redirect('/');
         console.log("coffeecups")
         // res.status(200).json({success: "Registered!"});
       });
@@ -23,7 +23,7 @@ var userController = {};
 
   console.log("User", req.body)
     passport.authenticate('local')(req, res, function () {
-        res.redirect('/quizcreation');
+        res.redirect('/');
         console.log("something")
      });
   }
