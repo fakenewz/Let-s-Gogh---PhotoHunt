@@ -5,6 +5,7 @@ var User = require("../models/User");
 var userController = {};
 
   userController.register = function(req, res) {
+    req.register()
     res.json({ success : "Signed In" });
   }; 
 
