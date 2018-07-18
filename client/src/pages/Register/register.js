@@ -32,7 +32,7 @@ newFormSubmit = event => {
     .then(
       res => {
       this.setState({
-        redirectTo: '/quizcreation'
+        redirectTo: '/register'
       })
      }
     )

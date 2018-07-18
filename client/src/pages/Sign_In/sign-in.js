@@ -4,6 +4,7 @@ import API from "../../utils/API";
 import Jumbotron from "../../components/Jumbotron";
 import { Input, FormBtn } from "../../components/Form";
 import { Container } from "../../components/Grid"; 
+import { Link } from "react-router-dom";
 
 class passPort extends Component {
     state = {
@@ -109,6 +110,13 @@ handleFormSubmit = event => {
             name="password"
             placeholder="Password"
           />
+
+          <Link to={"/register"}>
+            <strong>
+            Click here to Sign Up!
+            </strong>
+          </Link>
+
           <FormBtn
             disabled={!(this.state.username)}
             onClick={this.handleFormSubmit}
