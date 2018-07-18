@@ -32,7 +32,7 @@ newFormSubmit = event => {
     .then(
       res => {
       this.setState({
-        redirectTo: '/register'
+        redirectTo: '/admindash'
       })
      }
     )
