@@ -6,6 +6,9 @@ var quizcontroller = require("../controllers/quizController");
 const db = require("../models");
 
 console.log("dfdfd");
+
+router.get('/register', auth.register);
+
 // route for register action
 router.post('/register', auth.doRegister);
 

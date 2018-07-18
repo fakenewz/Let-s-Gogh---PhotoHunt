@@ -27,7 +27,7 @@ var userController = {};
 
   console.log("User", req.body)
     passport.authenticate('local')(req, res, function () {
-        res.redirect('/');
+        res.status(200).json({ success : "Logged In" });
         console.log("something")
      });
   }
