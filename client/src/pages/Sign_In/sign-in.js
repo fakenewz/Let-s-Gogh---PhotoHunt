@@ -67,7 +67,7 @@ handleFormSubmit = event => {
         studentID: this.state.studentID,
     })
     .then(() => {
-      this.props.history.push('/adminquiz')
+      this.props.history.push('/studentquiz')
     }).catch((error) => {
       console.log("blah blah")
       console.log(error)
