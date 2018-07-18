@@ -32,16 +32,6 @@ handleFormSubmit = event => {
         username: this.state.username,
         password: this.state.password,
     })
-  //   .then(
-  //     res => {
-  //     this.setState({
-  //       redirectTo: '/admindash'
-  //     })
-  //    }
-  //   )
-  //       .catch(err => console.log(err));
-  // }
-
    .then(() => {
     this.props.history.push('/admindash')
    }).catch((error) => {
@@ -49,6 +39,7 @@ handleFormSubmit = event => {
     console.log(error)
    })
   }
+  
   /*******/
 
   codeInputChange = event => {
