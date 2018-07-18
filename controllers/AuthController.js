@@ -5,7 +5,6 @@ var User = require("../models/User");
 var userController = {};
 
   userController.register = function(req, res) {
-    req.register()
     res.json({ success : "Signed In" });
   }; 
 
@@ -28,7 +27,7 @@ var userController = {};
 
   console.log("User", req.body)
     passport.authenticate('local')(req, res, function () {
-        res.status(200).json({ success : "Logged In" });
+        res.json({ success : "Logged In" });
         console.log("something")
      });
   }
