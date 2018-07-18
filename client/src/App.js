@@ -4,6 +4,7 @@ import Nav from "./components/Nav";
 import Books from "./pages/Books";
 import Admindash from "./pages/Admindash";
 import Adminquiz from "./pages/Adminquiz";
+import Studentquiz from "./pages/Studentquiz";
 import Sign_In from "./pages/Sign_In";
 import Quiz_Creation from "./pages/Quiz_Creation";
 import Register from "./pages/Register";
@@ -23,6 +24,7 @@ const App = () => (
         <Route exact path="/logout" component={Logout} />
         <Route exact path="/admindash" component={Admindash}/>
         <Route exact path="/adminquiz" component={Adminquiz}/>
+        <Route exact path="/studentquiz" component={Studentquiz}/>
         <Route component={NoMatch} />
       </Switch>
     </div>
