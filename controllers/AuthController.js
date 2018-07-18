@@ -6,7 +6,7 @@ var userController = {};
 
   userController.register = function(req, res) {
     res.json({ success : "Signed In" });
-  };
+  }; 
 
   userController.doRegister = function(req, res) {
     User.register(new User({ username : req.body.username, name: req.body.name }), req.body.password, function(err, user) {
