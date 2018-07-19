@@ -1,139 +1,236 @@
 import React, { Component } from 'react';
-import update from 'react-addons-update';
-import quizQuestions from '../../utils/quizQuestions';
-import Quiz from '../../components/Quiz/Quiz';
-import Result from '../../components/Quiz/Result';
+import './Studentquiz.css';
 
-class App extends Component {
+class App extends React.Component {
+    constructor(props) {
+        super(props);
 
-  constructor(props) {
-    super(props);
+        this.state = {
+            quiz: this.getData(),
+            activeView: null,
+            currentQuestionIndex: 0,
+            answers: []
+        };
 
-    this.state = {
-      counter: 0,
-      questionId: 1,
-      question: '',
-      answerOptions: [],
-      answer: '',
-      answersCount: {
-        Nintendo: 0,
-        Microsoft: 0,
-        Sony: 0
-      },
-      result: ''
+        this.submitAnswer = this.submitAnswer.bind(this);
+    }
+    
+    render() {
+        return (
+            <div className="App">
+                <div className="App-header">
+                    <h2 style={{ fontFamily: 'cursive', fontSize: '1.8em' }}>
+                        {this.state.quiz.title}
+                    </h2>
+                </div>
+                
+                {this.state.activeView === 'quizOverview' &&
+                    <QuizDescription
+                        quiz={this.state.quiz}
+                        showQuizQuestion={this.showQuizQuestion.bind(this, 0)}
+                    />
+                }
+                {this.state.activeView === 'quizQuestions' &&
+                    <Quizinator
+                        submitAnswer={this.submitAnswer}
+                        quiz={this.state.quiz}
+                        currentQuestionIndex={this.state.currentQuestionIndex}
+                        buttonsDisabled={this.state.buttonsDisabled}
+                        transitionDelay={this.state.transitionDelay}
+                    />
+                }
+                {this.state.activeView === 'quizResults' &&
+                    <QuizResults
+                        results={this.getResults()}
+                        thumbnail={this.state.quiz.thumbnail}
+                    />
+                }
+            </div>
+        );
     };
 
-    this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
-  }
+    componentDidMount() {
+        this.showQuizDescription();
+    };
 
-  componentWillMount() {
-    const shuffledAnswerOptions = quizQuestions.map((question) => this.shuffleArray(question.answers));
-    this.setState({
-      question: quizQuestions[0].question,
-      answerOptions: shuffledAnswerOptions[0]
-    });
-  }
+    getData() {
+      var quiz = require('../../utils/quiz.json'),
+            questions = require('../../utils/questions.json');
 
-  shuffleArray(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+        quiz.questions = questions;
+        return quiz;
+    };
 
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
+    showQuizDescription() {
+        this.setState((prevState, props) => {
+            return {
+                activeView: 'quizOverview'
+            };
+        });
+    }
+    
+    showQuizQuestion(index) {
+        console.log(index);
+        this.setState((prevState) => {
+            return {
+                currentQuestionIndex: index,
+                activeView: 'quizQuestions',
+                buttonsDisabled: false,
+                transitionDelay: 1000
+            };
+        });
+    };
+    
+    showResults() {
+        this.setState((prevState) => {
+            return {
+                activeView: 'quizResults'
+            };
+        });
     }
 
-    return array;
-  };
+    submitAnswer(answer) {
+        var app = this;
 
-  handleAnswerSelected(event) {
-    this.setUserAnswer(event.currentTarget.value);
+        // save answer and disable button clicks
+        this.setState((prevState) => {
+            return {
+                buttonsDisabled: true,
+                answers: Object.assign({ [this.state.currentQuestionIndex]: answer }, prevState.answers)
+            };
+        });
+        
+        // pause for question result to show before callback
+        window.setTimeout(function () {
 
-    if (this.state.questionId < quizQuestions.length) {
-        setTimeout(() => this.setNextQuestion(), 300);
-    } else {
-        setTimeout(() => this.setResults(this.getResults()), 300);
+            // determine if there are any other questions to show or show results
+            let nextIndex = app.state.currentQuestionIndex + 1,
+                hasMoreQuestions = (nextIndex < app.state.quiz.numOfQuestions);
+
+            (hasMoreQuestions) ? app.showQuizQuestion(nextIndex) : app.showResults();
+            
+        }, this.state.transitionDelay);
+    };
+    
+    getResults() {
+        return this.state.quiz.questions.map((item, index) => {
+            return Object.assign({}, item, this.state.answers[index]);
+        });
+    };
+
+}
+
+class QuizDescription extends React.Component {
+    render() {
+        let quiz = this.props.quiz;
+        let image = quiz.image;
+        let htmlDescription = function () { return { __html: quiz.introduction }; };
+
+        return (
+            <section className="overviewSection">
+                <div className="imageWrapper">
+                    <img src={image.filePath} alt={image.altText} />
+                </div>
+                <div className="description" dangerouslySetInnerHTML={htmlDescription()} />
+                <button onClick={this.props.showQuizQuestion}>Begin</button>
+            </section>
+        );
+    };
+}
+
+class Quizinator extends React.Component {
+    render() {
+        let quiz = this.props.quiz,
+            question = this.props.quiz.questions[this.props.currentQuestionIndex],
+            htmlQuestion = function () {
+                return { __html: question.question };
+            },
+            answerButtons = question.answers.map((answer, i) =>
+                <p key={i}><button className={answer.answer} onClick={this.handleClick.bind(this, i)} disabled={this.props.buttonsDisabled}>{answer}</button></p>
+        );
+
+        return (
+            <section className={'quizSection' + (this.props.buttonsDisabled ? ' transitionOut' : '')}>
+                <div className="questionNumber">Question {this.props.currentQuestionIndex + 1} / {quiz.questions.length}</div>
+                <hr />
+                <div className="question">
+                    <div dangerouslySetInnerHTML={htmlQuestion()} />
+                </div>
+                <div className="answers">
+                    {answerButtons}
+                </div>
+            </section>
+        );
     }
-  }
 
-  setUserAnswer(answer) {
-    const updatedAnswersCount = update(this.state.answersCount, {
-      [answer]: {$apply: (currentValue) => currentValue + 1}
-    });
+    handleClick(index, event) {
+        let question = this.props.quiz.questions[this.props.currentQuestionIndex],
+            answer = { value: index + 1, isCorrect: (index + 1 === question.correct) },
+            target = event.currentTarget;
 
-    this.setState({
-        answersCount: updatedAnswersCount,
-        answer: answer
-    });
-  }
+        this.props.submitAnswer(answer);
 
-  setNextQuestion() {
-    const counter = this.state.counter + 1;
-    const questionId = this.state.questionId + 1;
+        target.classList.add('clicked', answer.isCorrect ? 'correct' : 'incorrect');
 
-    this.setState({
-        counter: counter,
-        questionId: questionId,
-        question: quizQuestions[counter].question,
-        answerOptions: quizQuestions[counter].answers,
-        answer: ''
-    });
-  }
-
-  getResults() {
-    const answersCount = this.state.answersCount;
-    const answersCountKeys = Object.keys(answersCount);
-    const answersCountValues = answersCountKeys.map((key) => answersCount[key]);
-    const maxAnswerCount = Math.max.apply(null, answersCountValues);
-
-    return answersCountKeys.filter((key) => answersCount[key] === maxAnswerCount);
-  }
-
-  setResults(result) {
-    if (result.length === 1) {
-      this.setState({ result: result[0] });
-    } else {
-      this.setState({ result: 'Undetermined' });
+        window.setTimeout(function () {
+            target.classList.remove('clicked', 'correct', 'incorrect');
+        }, this.props.transitionDelay);
     }
-  }
+}
 
-  renderQuiz() {
-    return (
-      <Quiz
-        answer={this.state.answer}
-        answerOptions={this.state.answerOptions}
-        questionId={this.state.questionId}
-        question={this.state.question}
-        questionTotal={quizQuestions.length}
-        onAnswerSelected={this.handleAnswerSelected}
-      />
-    );
-  }
+class QuizResults extends React.Component {
+    render() {
+        const badgeStyle = {
+            backgroundImage: `url(${this.props.thumbnail.filePath})`,
+            width: this.props.thumbnail.height,
+            height: this.props.thumbnail.height,
+            lineHeight: this.props.thumbnail.height + 'px'
+        };
+        
+        let numCorrect = 0, score = 0, possibleScore = 0;
 
-  renderResult() {
-    return (
-      <Result quizResult={this.state.result} />
-    );
-  }
+        this.props.results.forEach((answer) => {
+            if (!!answer.isCorrect) {
+                numCorrect += 1;
+                score += ((answer.level || 1) * 10);
+            }
+            possibleScore += ((answer.level || 1) * 10);
+        });
+        
+        const results = this.props.results.map((item, i) => {
+            let questionHtml = function () { return { __html: item.question }; };
+            let explanationHtml = function () { return { __html: item.explanation }; };
+            let response =
+                (item.isCorrect === true) ?
+                    "You correctly answered " :
+                (item.isCorrect === false) ? 
+                    `You answered ${item.answers[item.value - 1]}. The correct answer is ` :
+                    "The correct answer is ";
 
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <h2>Field Museum Quiz</h2>
-        </div>
-        {this.state.result ? this.renderResult() : this.renderQuiz()}
-      </div>
-    );
-  }
+            return (
+                <li className={"result" + (item.isCorrect ? " correct" : " incorrect")} key={i}>
+                    <div className="question" dangerouslySetInnerHTML={questionHtml()} />
+                    <div className="response">
+                        {response} <b>{item.answers[item.correct - 1]}</b>
+                    </div>
+                    <p className="explanation">
+                        <i dangerouslySetInnerHTML={explanationHtml()} />
+                    </p>
+                </li>
+            );
+        });
 
+        return (
+            <section className="resultsSection">
+                <h2>Results</h2>
+                <div className="scoring">
+                    You got <em>{numCorrect}</em> correct scoring a total of <b>{score}</b> out of a possible <b>{possibleScore}</b>.
+                </div>
+                <div className="badge" style={badgeStyle}>{score}</div>
+                <ol>{results}</ol>
+            </section>
+        );
+    }
 }
 
 export default App;
