@@ -60,7 +60,7 @@ export default {
     return axios.get("/logout")
   },
 //Studentquiz
-saveStudentquiz: function(saveResults) {
-  return axios.post("/studentquiz", saveResults )
-}
+  saveStudentquiz: function(o) {
+  return axios.post("/studentquiz", o)
+  }
 };

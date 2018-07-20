@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './Studentquiz.css';
+import API from "./../../utils/API"
 
-class App extends React.Component {
+class quizApp extends React.Component {
     constructor(props) {
         super(props);
 
@@ -9,7 +10,8 @@ class App extends React.Component {
             quiz: this.getData(),
             activeView: null,
             currentQuestionIndex: 0,
-            answers: []
+            answers: [],
+            correctyn: []
         };
 
         this.submitAnswer = this.submitAnswer.bind(this);
@@ -93,13 +95,19 @@ class App extends React.Component {
         var app = this;
 
         // save answer and disable button clicks
-        this.setState((prevState) => {
+        console.log("answer", answer)
+
+        API.saveStudentquiz({ answers: [answer.value], correctyn: [answer.isCorrect] })
+      
+        this.setState((prevState) => { 
             return {
                 buttonsDisabled: true,
                 answers: Object.assign({ [this.state.currentQuestionIndex]: answer }, prevState.answers)
             };
         });
-        
+        console.log("answerszszsz", this.state.answers)
+ 
+       
         // pause for question result to show before callback
         window.setTimeout(function () {
 
@@ -233,4 +241,4 @@ class QuizResults extends React.Component {
     }
 }
 
-export default App;
+export default quizApp; 
