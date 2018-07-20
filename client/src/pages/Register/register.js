@@ -4,6 +4,7 @@ import API from "../../utils/API";
 import Jumbotron from "../../components/Jumbotron";
 import { Input, FormBtn } from "../../components/Form";
 import { Container } from "../../components/Grid"; 
+import Footer from "../../components/Footer";
 
 class registerHere extends Component {
     state = {
@@ -71,8 +72,9 @@ newFormSubmit = event => {
             onClick={this.newFormSubmit}
           >
             Submit
-          </FormBtn>
+          </FormBtn>       
         </form>
+        <footer>test</footer>
         </Container>
     )
    }

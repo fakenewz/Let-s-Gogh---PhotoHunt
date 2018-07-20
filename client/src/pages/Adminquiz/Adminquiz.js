@@ -3,6 +3,7 @@ import update from 'react-addons-update';
 import quizQuestions from '../../utils/quizQuestions';
 import Quiz from '../../components/Quiz/Quiz';
 import Result from '../../components/Quiz/Result';
+import Footer from "../../components/Footer";
 
 class App extends Component {
 
@@ -130,7 +131,9 @@ class App extends Component {
           <h2>Field Museum Quiz</h2>
         </div>
         {this.state.result ? this.renderResult() : this.renderQuiz()}
+        <footer></footer>
       </div>
+    
     );
   }
 

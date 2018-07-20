@@ -9,6 +9,7 @@ import Quiz_Creation from "./pages/Quiz_Creation";
 import Register from "./pages/Register";
 import Logout from "./pages/Logout";
 import NoMatch from "./pages/NoMatch";
+import Footer from "./components/Footer";
 
  
 const App = () => (

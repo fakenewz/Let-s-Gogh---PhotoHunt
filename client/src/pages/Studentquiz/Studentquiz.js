@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Studentquiz.css';
+import Footer from "../../components/Footer";
 
 class App extends React.Component {
     constructor(props) {
@@ -159,6 +160,7 @@ class Quizinator extends React.Component {
                 <div className="answers">
                     {answerButtons}
                 </div>
+                
             </section>
         );
     }
@@ -228,6 +230,7 @@ class QuizResults extends React.Component {
                 </div>
                 <div className="badge" style={badgeStyle}>{score}</div>
                 <ol>{results}</ol>
+                <footer></footer>
             </section>
         );
     }
