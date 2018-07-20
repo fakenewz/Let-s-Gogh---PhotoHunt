@@ -59,4 +59,8 @@ export default {
   signOut: function() {
     return axios.get("/logout")
   },
+//Studentquiz
+saveStudentquiz: function(saveResults) {
+  return axios.post("/studentquiz", saveResults )
+}
 };

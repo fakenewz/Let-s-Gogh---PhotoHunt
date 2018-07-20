@@ -10,9 +10,9 @@ function Result(props) {
       component="div"
       transitionName="fade"
       transitionEnterTimeout={800}
-      transitionLeaveTimeout={500}
+      transitionLeaveTimeout={800}
       transitionAppear
-      transitionAppearTimeout={500}
+      transitionAppearTimeout={800}
     >
       <div>
         You prefer <strong>{props.quizResult}</strong>!
