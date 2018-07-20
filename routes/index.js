@@ -3,6 +3,7 @@ const router = require("express").Router();
 var auth = require("../controllers/AuthController.js");
 var codecontroller = require("../controllers/codeController");
 var quizcontroller = require("../controllers/quizController");
+var studentquizController = require("../controllers/studentquizController")
 const db = require("../models");
 
 console.log("dfdfd");
@@ -34,7 +35,7 @@ router.get('/quizcreation', codecontroller.findAll);
     db.Code.find({code: req.body.code})
     .then(foundCode => {
       if (foundCode.length == 0) {
-        console.log("Does not exist")
+        cb('Does not exist',null);
       } else {
         console.log("A", foundCode.length)
       }
@@ -55,5 +56,6 @@ router.get('/musuemquiz/:id', quizcontroller.findById);
 router.put('/musuemquiz/:id', quizcontroller.update);
 router.delete('/musuemquiz/:id', quizcontroller.remove);
 
+router.post('/studentquiz', studentquizController.create);
 
 module.exports = router; 
