@@ -5,6 +5,7 @@ import Jumbotron from "../../components/Jumbotron";
 import { Input, FormBtn } from "../../components/Form";
 import { Container } from "../../components/Grid"; 
 import { Link } from "react-router-dom";
+import Footer from "../../components/Footer";
 
 class passPort extends Component {
     state = {
@@ -138,6 +139,7 @@ handleFormSubmit = event => {
             Submit
           </FormBtn>
         </form>
+        <Footer></Footer>
         </Container>
     )
    }

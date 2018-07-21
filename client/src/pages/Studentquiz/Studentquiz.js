@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import './Studentquiz.css';
+import Footer from "../../components/Footer";
+<<<<<<< HEAD
+=======
+import API from "./../../utils/API"
+>>>>>>> 8a0249c83e531beed54190762ffc7f0e5de35aba
 
-class App extends React.Component {
+class quizApp extends React.Component {
     constructor(props) {
         super(props);
 
@@ -9,7 +14,8 @@ class App extends React.Component {
             quiz: this.getData(),
             activeView: null,
             currentQuestionIndex: 0,
-            answers: []
+            answers: [],
+            correctyn: []
         };
 
         this.submitAnswer = this.submitAnswer.bind(this);
@@ -93,13 +99,19 @@ class App extends React.Component {
         var app = this;
 
         // save answer and disable button clicks
-        this.setState((prevState) => {
+        console.log("answer", answer)
+
+        API.saveStudentquiz({ answers: [answer.value], correctyn: [answer.isCorrect] })
+      
+        this.setState((prevState) => { 
             return {
                 buttonsDisabled: true,
                 answers: Object.assign({ [this.state.currentQuestionIndex]: answer }, prevState.answers)
             };
         });
-        
+        console.log("answerszszsz", this.state.answers)
+ 
+       
         // pause for question result to show before callback
         window.setTimeout(function () {
 
@@ -159,6 +171,7 @@ class Quizinator extends React.Component {
                 <div className="answers">
                     {answerButtons}
                 </div>
+                
             </section>
         );
     }
@@ -228,9 +241,10 @@ class QuizResults extends React.Component {
                 </div>
                 <div className="badge" style={badgeStyle}>{score}</div>
                 <ol>{results}</ol>
+                <Footer></Footer>
             </section>
         );
     }
 }
 
-export default App;
+export default quizApp; 

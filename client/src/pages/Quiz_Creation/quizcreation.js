@@ -3,6 +3,7 @@ import API from "../../utils/API";
 import Jumbotron from "../../components/Jumbotron";
 import { Input, FormBtn } from "../../components/Form";
 import { Container } from "../../components/Grid"; 
+import Footer from "../../components/Footer";
 
 class quizCreation extends Component {
     state = {
@@ -77,6 +78,7 @@ handleInputChange = event => {
             Submit
           </FormBtn>
         </form>
+        <Footer></Footer>
         </Container>
     )
   }
