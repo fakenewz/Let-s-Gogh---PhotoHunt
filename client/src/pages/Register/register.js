@@ -74,7 +74,7 @@ newFormSubmit = event => {
             Submit
           </FormBtn>       
         </form>
-        <footer>test</footer>
+        <Footer></Footer>
         </Container>
     )
    }

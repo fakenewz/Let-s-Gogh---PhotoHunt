@@ -78,7 +78,7 @@ handleInputChange = event => {
             Submit
           </FormBtn>
         </form>
-        <footer></footer>
+        <Footer></Footer>
         </Container>
     )
   }
