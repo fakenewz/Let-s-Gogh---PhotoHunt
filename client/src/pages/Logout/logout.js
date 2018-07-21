@@ -13,7 +13,7 @@ render() {
         <Jumbotron>
           <h1>Logout</h1>
         </Jumbotron>   
-        <footer></footer>
+        <Footer></Footer>
       </Container>
     )
    } 

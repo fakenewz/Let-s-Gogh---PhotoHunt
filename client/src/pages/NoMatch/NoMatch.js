@@ -16,7 +16,7 @@ const NoMatch = () => (
             </span>
           </h1>
         </Jumbotron>
-        <footer></footer>
+        <Footer></Footer>
 
       </Col>   
 

@@ -139,9 +139,7 @@ handleFormSubmit = event => {
             Submit
           </FormBtn>
         </form>
-        <Footer>
-          <h1>TEST TEST</h1>
-        </Footer>
+        <Footer></Footer>
         </Container>
     )
    }

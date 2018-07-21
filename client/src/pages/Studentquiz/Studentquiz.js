@@ -238,7 +238,7 @@ class QuizResults extends React.Component {
                 </div>
                 <div className="badge" style={badgeStyle}>{score}</div>
                 <ol>{results}</ol>
-                <footer></footer>
+                <Footer></Footer>
             </section>
         );
     }

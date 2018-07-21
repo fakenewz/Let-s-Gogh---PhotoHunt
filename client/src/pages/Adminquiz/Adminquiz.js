@@ -131,9 +131,7 @@ class App extends Component {
           <h2>Field Museum Quiz</h2>
         </div>
         {this.state.result ? this.renderResult() : this.renderQuiz()}
-        <footer></footer>
       </div>
-    
     );
   }
 
