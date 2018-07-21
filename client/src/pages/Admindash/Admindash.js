@@ -10,9 +10,8 @@ import { Input, TextArea, FormBtn } from "../../components/Form";
 class Admindash extends Component {
   state = {
     quizcode: [],
-    quiztitle: "",
-    quizlocation: "",
-    synopsis: ""
+    username: "",
+    userresults: ""
   };
 
   componentDidMount() {
