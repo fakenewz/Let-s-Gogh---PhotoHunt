@@ -1,6 +1,7 @@
-{"id":5011,"type":"QUIZ","title":"Field Museum: Fact or Fiction?","description":"Take this quiz to test your knowledge of the exhibits currently on display at the Field Museum!",
-"url":"http://www.trbimg.com/img-59a6c5c0/turbine/ct-patagotitan-mayorum-sue-field-museum-0830",
-"thumbnail":{"id":178408,"width":225,"height":120,"type":"RECTANGLE_THUMBNAIL","credit":"� Malchev/Fotolia","filePath":"https://media1.britannica.com/eb-media/08/178408-118-A0ACA0C5.jpg",
-"duration":0,"license":null,"description":"Photograph","mediaType":"IMAGE",
-"altText":"Illustration of muscular man on purple building wearing cape. cartoon superhero comic book costume similar to superman action hero silhouette","mediaId":0},
-"image":{"id":178408,"width":900,"height":675,"type":"FEATURE","credit":"� Malchev/Fotolia","filePath":"http://www.trbimg.com/img-59a6c5c0/turbine/ct-patagotitan-mayorum-sue-field-museum-0830","duration":0,"license":null,"description":"Photograph","mediaType":"IMAGE","altText":"Illustration of muscular man on purple building wearing cape. cartoon superhero comic book costume similar to superman action hero silhouette","mediaId":0},"browserTitle":"Field Museum: Fact or Fiction Quiz","introduction":"What happened to the dinosaurs? Where are their living descendants? Test your knowledge as you tour the Field Museum's latest exhibit!","level":1,"keywords":["britannica"," encyclopedia britannica"," quiz"," quizzes"," comic"," Superman"," Spider-Man"," Batman"," X-Men"," Clark Kent"," hero"," comic book"," superhero"," superhuman"," pop culture"],"editorIds":null,"newQuiz":false,"numOfQuestions":6,"timer":true,"seconds":10,"sortTitle":"Comic Books: Fact or Fiction?","quizType":"TRUE_FALSE","date":20140812,"questions":null,"identifier":"5011"}
+{"id":5011,"title":"Field Museum: Fact or Fiction?",
+    "thumbnail":{"filePath":"https://78.media.tumblr.com/f9b6f61951745681f7a3c5f49035a157/tumblr_inline_nl2it1fWHT1ry72eo.gif",
+    "altText":"Walking dinosaur gif."},
+    "image":{"filePath":"http://www.trbimg.com/img-59a6c5c0/turbine/ct-patagotitan-mayorum-sue-field-museum-0830",
+    "altText":"Large T-Rex fossil"},
+    "introduction":"What happened to the dinosaurs? Where are their living descendants? Test your knowledge as you tour the Field Museum's latest exhibit!",
+    "numOfQuestions":6}
