@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import './Studentquiz.css';
-<<<<<<< HEAD
 import Footer from "../../components/Footer";
-=======
-import API from "./../../utils/API"
->>>>>>> 7c5399b54544700ab3d20400b3693e05fea7c8cc
 
 class quizApp extends React.Component {
     constructor(props) {
