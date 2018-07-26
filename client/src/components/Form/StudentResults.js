@@ -12,5 +12,5 @@ app.get("/articles", function(req, res) {
       // Or send the doc to the browser as a json object
       else {
         res.json(doc);
-      }
-    });
+      }})})
+    

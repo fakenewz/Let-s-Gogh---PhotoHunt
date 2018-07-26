@@ -7,6 +7,19 @@ import { Container } from "../../components/Grid";
 import { Link } from "react-router-dom";
 import Footer from "../../components/Footer";
 
+
+var styles1 = {
+  color:'white',
+  fontFamily: 'Helvetica Bold', fontSize: 250, paddingLeft: 500, 
+};
+
+var styles2 = {
+  color: '#ffce00',
+  fontFamily: 'Helvetica Bold', fontSize: 300, paddingLeft: 700, 
+};
+
+document.body.style = 'background: black;';
+
 class passPort extends Component {
     state = {
         username: "",
@@ -85,7 +98,7 @@ handleFormSubmit = event => {
     return (
        <Container fluid>
         <Jumbotron>
-          <h1>TEST TEST</h1>
+          <h1 style={styles1}>FIELD</h1><h2 style={styles2}>TRIP</h2>                 
         </Jumbotron>
         <form>
           <Input
