@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import './Studentquiz.css';
 import Footer from "../../components/Footer";
-<<<<<<< HEAD
-=======
-import API from "./../../utils/API"
->>>>>>> 8a0249c83e531beed54190762ffc7f0e5de35aba
+import API from "./../../utils/API";
+import FileUpload from "../../components/FileUpload"
+import Example from '../../components/Timer';
 
 class quizApp extends React.Component {
     constructor(props) {
@@ -144,7 +143,7 @@ class QuizDescription extends React.Component {
                     <img src={image.filePath} alt={image.altText} />
                 </div>
                 <div className="description" dangerouslySetInnerHTML={htmlDescription()} />
-                <button onClick={this.props.showQuizQuestion}>Begin</button>
+                 <button onClick={this.props.showQuizQuestion}>Begin</button>
             </section>
         );
     };
@@ -164,14 +163,13 @@ class Quizinator extends React.Component {
         return (
             <section className={'quizSection' + (this.props.buttonsDisabled ? ' transitionOut' : '')}>
                 <div className="questionNumber">Question {this.props.currentQuestionIndex + 1} / {quiz.questions.length}</div>
-                <hr />
+                <hr /> 
                 <div className="question">
                     <div dangerouslySetInnerHTML={htmlQuestion()} />
                 </div>
                 <div className="answers">
                     {answerButtons}
-                </div>
-                
+                </div>  
             </section>
         );
     }
