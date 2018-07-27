@@ -11,9 +11,8 @@ import Footer from "../../components/Footer";
 class Admindash extends Component {
   state = {
     quizcode: [],
-    quiztitle: "",
-    quizlocation: "",
-    synopsis: ""
+    username: "",
+    userresults: ""
   };
 
   componentDidMount() {

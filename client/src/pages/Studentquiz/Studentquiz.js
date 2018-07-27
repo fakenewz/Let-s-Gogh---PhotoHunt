@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import './Studentquiz.css';
 import Footer from "../../components/Footer";
-import API from "./../../utils/API";
-import FileUpload from "../../components/FileUpload"
-import Example from '../../components/Timer';
+import API from "./../../utils/API"
+import "./Studentquiz.css";
 
 class quizApp extends React.Component {
     constructor(props) {

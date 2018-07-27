@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 // import { Navbar } from 'react-bootstrap';
 // import { NavItem } from 'react-bootstrap';
 
@@ -9,6 +10,16 @@ const Nav = () => (
     <a className="navbar-brand" href="/">
     Let's Gogh Photohunt!  
     </a>  
+=======
+import "./Nav.css";
+
+const Nav = () => (
+  <nav className="navbar navbar-expand-lg navbar-custom">
+    <a className="navbar-brand navbar-custom" href="/">
+    Let's Gogh Photohunt
+    </a>
+  </nav>
+>>>>>>> 3fac87f55a11f04a2e537b38ab697c8dddd4619e
 
   </nav>
 );
