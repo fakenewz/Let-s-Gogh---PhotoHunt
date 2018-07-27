@@ -1,10 +1,13 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const db = require("../models");
 
 const quizResultsSchema = new Schema({
-  answers: {type: String, required: false},
-  correctyn: {type: String, required: false},
-  // score: { type: Number, required: true },
+  // _id: { type: Schema.Types.ObjectId, ref: 'Quiz' },
+  answer1: {type: String, required: false},
+  answer2: {type: String, required: false},
+  correct: { type: String, required: false },
+  answersArray: [{ type: String }],
   date: { type: Date, default: Date.now }
 });
 
