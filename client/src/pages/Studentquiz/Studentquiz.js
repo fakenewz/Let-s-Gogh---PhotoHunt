@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Studentquiz.css';
 import Footer from "../../components/Footer";
 import API from "./../../utils/API"
+import "./Studentquiz.css";
 
 class radioButtons extends Component {
   constructor() {

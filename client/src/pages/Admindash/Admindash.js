@@ -24,6 +24,8 @@ class Admindash extends Component {
     b4: "",
     bRight: "",
     correctOnes: [],
+    username: "",
+    userresults: ""
   };
 
   componentDidMount() {
