@@ -16,9 +16,8 @@ The app requires a few installs in order to work, please reference the package-j
 The app works as follows:
 When an admin user registers, they are taken to a 'create a quiz page', from there the user can create a quiz with 10 questions, from there they provide the answer and multiple choices that are incorrect. When a student signs up, they are provided with a quiz and from there, they are provided with the questions and a place to uplad there questions. After all questions are answered, they're provided with there quiz resuts. 
 
-![alt text]()
+![alt text](https://github.com/fakenewz/Let-s-Gogh---PhotoHunt/blob/master/client/src/letsgough)
 
-![alt text]()
 
 <b>Built With:</b>
 
