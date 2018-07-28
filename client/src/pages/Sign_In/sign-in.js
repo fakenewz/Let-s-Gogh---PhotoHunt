@@ -98,7 +98,9 @@ handleFormSubmit = event => {
     return (
        <Container fluid>
         <Jumbotron>
-          <h1 style={styles1}>FIELD</h1><h2 style={styles2}>TRIP</h2>                 
+          <div style={{width: "40%"}}>
+            <h1 style={styles1}>FIELD</h1><h2 style={styles2}>TRIP</h2>  
+          </div>                         
         </Jumbotron>
         <form>
           <Input
