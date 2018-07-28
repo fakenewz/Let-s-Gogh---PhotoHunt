@@ -10,12 +10,12 @@ import Footer from "../../components/Footer";
 
 var styles1 = {
   color:'white',
-  fontFamily: 'Helvetica Bold', fontSize: 250, paddingLeft: 500, 
+  fontFamily: 'Helvetica Bold', fontSize: 250, paddingLeft: 400, 
 };
 
 var styles2 = {
   color: '#ffce00',
-  fontFamily: 'Helvetica Bold', fontSize: 300, paddingLeft: 700, 
+  fontFamily: 'Helvetica Bold', fontSize: 300, paddingLeft: 600, 
 };
 
 document.body.style = 'background: black;';
