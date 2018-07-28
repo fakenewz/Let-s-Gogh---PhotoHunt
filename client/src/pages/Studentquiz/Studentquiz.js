@@ -53,23 +53,6 @@ class radioButtons extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-<<<<<<< HEAD
-    
-        if (this.state.answer1 && this.state.answer2) {
-          let quizdata = new FormData();
-          quizdata.set('answer1', this.state.answer1); //this is the photo url on MongoDB, not the file itself
-          quizdata.set('answer2', this.state.answer2);
-          quizdata.set('photo', this.state.photo); //this is the photo url on MongoDB, not the file itself
-          quizdata.set('date', this.state.date);
-          quizdata.set('picture', this.fileInput.current.files[0], this.fileInput.current.files[0].name);
-    
-
-        API.saveStudentquiz(quizdata).then(
-            this.setState({
-            isButtonDisabled: true
-        })
-        )
-=======
 
     API.saveStudentquiz({
       answer1: this.state.answer1,
@@ -81,7 +64,6 @@ class radioButtons extends Component {
         isButtonDisabled: true
       })
     )
->>>>>>> 342fa9673bc08d9c25518daf8ab8a12e8e4057d9
       .catch(err => console.log(err));
      }
     }
@@ -95,7 +77,7 @@ class radioButtons extends Component {
 
 
   render() {
-    let questionList = this.state.questions;
+    //let questionList = this.state.questions;
     // console.log("balh", this.state.answersArray)
     // console.log("dfdfddfd", this.state.questions)
 
@@ -141,14 +123,10 @@ class radioButtons extends Component {
                 />
                 {ques.a4}
 
-<<<<<<< HEAD
-    <input type="file"
-                  name="coffee"
-=======
+    
                   <input type="input"
                   input type="button"
                   name="photoupload"
->>>>>>> 342fa9673bc08d9c25518daf8ab8a12e8e4057d9
                   value={ques.a5}
                   checked={this.state.answer1 === ques.a5}
                   onChange={this.handleChange1}
@@ -161,6 +139,8 @@ class radioButtons extends Component {
           )
           )
           }
+          }
+  
 
         {/* //   <button type="submit" disabled={this.state.isButtonDisabled}> Submit Answer </button> */}
 
@@ -206,29 +186,22 @@ class radioButtons extends Component {
                 />
                 {q.b4}
 
-<<<<<<< HEAD
-                <input type="file"
-                  name="cups"
-                  value={q.b5}
-                  checked={this.state.answer1 === q.b5}
-                  onChange={this.handleChange1}
-                />
-                {q.b5}
-=======
           
 
->>>>>>> 342fa9673bc08d9c25518daf8ab8a12e8e4057d9
               </div>
             </li>
              )
           )
           }
+      
+
 
           <button type="submit" disabled={this.state.isButtonDisabled}> Submit Answer </button>
         </form>
       </div>
       )
     }
-}
+  }
+
 
   export default radioButtons
