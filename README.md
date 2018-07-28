@@ -5,7 +5,7 @@ The No Worries Pet Sitting app allows people to have their pets taken care of wh
 
 <b>Getting Started:</b> 
 
-In order to access the app, please visit: https://pure-oasis-23490.herokuapp.com/. From here you'll be able to enter in your information and test the app to see all of its great functionalities. Take a look at the app, and sign up to take care of a pet today or go on a vacation and have someone take care of your pet while you're away.
+In order to access the app, please visit: https://hidden-caverns-48694.herokuapp.com/. From here you'll be able to enter in your information and test the app to see all of its great functionalities. Take a look at the app, and sign up to take care of a pet today or go on a vacation and have someone take care of your pet while you're away.
 
 <b>Installing</b>
 
@@ -32,9 +32,10 @@ Node,
 Heroku,
 Multer,
 Passport,
+Express,
 CSS,
 Mongo,
-body-parser,
+Axios,
 Path
 
 
