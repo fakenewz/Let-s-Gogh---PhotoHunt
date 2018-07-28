@@ -12,7 +12,7 @@ class radioButtons extends Component {
       answersArray: [],
       answer1: "",
       answer2: "",
-      photo1: "",
+      photo: "",
       quiz: { "title": "Field Museum: Fact or Fiction?", "image": "../../dinosaur.GIF", "introduction": "What happened to the dinosaurs? Where are their living descendants? Test your knowledge as you tour the Field Museum's latest exhibit!" },
       currentQuestionIndex: 0,
       questions: [],
@@ -21,6 +21,7 @@ class radioButtons extends Component {
 
     this.handleChange1 = this.handleChange1.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
+    this.handleChange3 = this.handleChange3.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -50,20 +51,29 @@ class radioButtons extends Component {
     });
   }
 
+  handleChange3 = (event3) => {
+    this.setState({
+      photo: event3.target.value
+    });
+  }
 
   handleSubmit = event => {
     event.preventDefault();
+    
+        if (this.state.answer1 && this.state.answer2) {
+          let quizdata = new FormData();
+          quizdata.set('answer1', this.state.answer1); //this is the photo url on MongoDB, not the file itself
+          quizdata.set('answer2', this.state.answer2);
+          quizdata.set('photo', this.state.photo); //this is the photo url on MongoDB, not the file itself
+          quizdata.set('date', this.state.date);
+          quizdata.set('picture', this.fileInput.current.files[0], this.fileInput.current.files[0].name);
+    
 
-    API.saveStudentquiz({
-      answer1: this.state.answer1,
-      answer2: this.state.answer2,
-      photo1: this.state.photo1,
-      answersArray: this.state.answersArray.concat(this.state.answer1, this.state.answer2),
-    }).then(
-      this.setState({
-        isButtonDisabled: true
-      })
-    )
+        API.saveStudentquiz(quizdata).then(
+            this.setState({
+            isButtonDisabled: true
+        })
+        )
       .catch(err => console.log(err));
      }
     }
@@ -123,10 +133,8 @@ class radioButtons extends Component {
                 />
                 {ques.a4}
 
-    
-                  <input type="input"
-                  input type="button"
-                  name="photoupload"
+                <input type="file"
+                  name="coffee"
                   value={ques.a5}
                   checked={this.state.answer1 === ques.a5}
                   onChange={this.handleChange1}
@@ -185,9 +193,6 @@ class radioButtons extends Component {
                   onChange={this.handleChange2}
                 />
                 {q.b4}
-
-          
-
               </div>
             </li>
              )
