@@ -12,6 +12,7 @@ class radioButtons extends Component {
       answersArray: [],
       answer1: "",
       answer2: "",
+      photo1: "",
       quiz: { "title": "Field Museum: Fact or Fiction?", "image": "../../dinosaur.GIF", "introduction": "What happened to the dinosaurs? Where are their living descendants? Test your knowledge as you tour the Field Museum's latest exhibit!" },
       currentQuestionIndex: 0,
       questions: [],
@@ -49,12 +50,14 @@ class radioButtons extends Component {
     });
   }
 
+
   handleSubmit = event => {
     event.preventDefault();
 
     API.saveStudentquiz({
       answer1: this.state.answer1,
       answer2: this.state.answer2,
+      photo1: this.state.photo1,
       answersArray: this.state.answersArray.concat(this.state.answer1, this.state.answer2),
     }).then(
       this.setState({
@@ -119,6 +122,15 @@ class radioButtons extends Component {
                 />
                 {ques.a4}
 
+                  <input type="input"
+                  input type="button"
+                  name="photoupload"
+                  value={ques.a5}
+                  checked={this.state.answer1 === ques.a5}
+                  onChange={this.handleChange1}
+                />
+                {ques.a5}
+
               </div>
 
             </li>
@@ -169,6 +181,9 @@ class radioButtons extends Component {
                   onChange={this.handleChange2}
                 />
                 {q.b4}
+
+          
+
               </div>
             </li>
              )
