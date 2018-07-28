@@ -10,6 +10,8 @@ import Register from "./pages/Register";
 import Logout from "./pages/Logout";
 import NoMatch from "./pages/NoMatch";
 import Footer from "./components/Footer";
+import Timer from "./components/Timer";
+
 
  
 const App = () => (

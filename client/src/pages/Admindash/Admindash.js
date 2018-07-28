@@ -11,8 +11,20 @@ import Footer from "../../components/Footer";
 class Admindash extends Component {
   state = {
     quizcode: [],
+    question1: "",
+    a1: "",
+    a2: "", 
+    a3: "", 
+    a4: "",
+    aRight: "",
+    question2: "",
+    b1: "",
+    b2: "", 
+    b3: "", 
+    b4: "",
+    bRight: "",
+    correctOnes: [],
     username: "",
-    userresults: ""
   };
 
   componentDidMount() {
@@ -22,7 +34,7 @@ class Admindash extends Component {
   loadQuizzes = () => {
     API.getQuizzes()
       .then(res =>
-        this.setState({ quizcode: res.data, quiztitle: "", quizlocation: "", synopsis: "" })
+        this.setState({ quizcode: res.data, question1: "", a1: "", a2: "", a3: "", a4: "", aRight: "", question2: "", b1: "", b2: "", b3: "", b4: "", bRight: "",})
       )
       .catch(err => console.log(err));
   };
@@ -42,11 +54,21 @@ class Admindash extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.quiztitle && this.state.quizlocation) {
+    if (this.state.question1) {
       API.saveQuiz({
-        quiztitle: this.state.quiztitle,
-        quizlocation: this.state.quizlocation,
-        synopsis: this.state.synopsis
+        question1: this.state.question1,
+        a1: this.state.a1,
+        a2: this.state.a2, 
+        a3: this.state.a3, 
+        a4: this.state.a4,
+        aRight: this.state.aRight,
+        question2: this.state.question2,
+        b1: this.state.b1,
+        b2: this.state.b2, 
+        b3: this.state.b3, 
+        b4: this.state.b4,
+        bRight: this.state.bRight,
+        correctOnes: this.state.correctOnes.concat(this.state.aRight, this.state.bRight),
       })
         .then(res => this.loadQuizzes())
         .catch(err => console.log(err));
@@ -63,25 +85,79 @@ class Admindash extends Component {
             </Jumbotron>
             <form>
               <Input
-                value={this.state.quiztitle}
+                value={this.state.question1}
                 onChange={this.handleInputChange}
-                name="quiztitle"
-                placeholder="____ (required)"
+                name="question1"
+                placeholder="question1"
               />
               <Input
-                value={this.state.quizlocation}
+                value={this.state.a1}
                 onChange={this.handleInputChange}
-                name="quizlocation"
-                placeholder="____ (required)"
+                name="a1"
+                placeholder="a1"
               />
-              <TextArea
-                value={this.state.synopsis}
+              <Input
+                value={this.state.a2}
                 onChange={this.handleInputChange}
-                name="synopsis"
-                placeholder="____ (Optional)"
+                name="a2"
+                placeholder="a2"
+              />
+              <Input
+                value={this.state.a3}
+                onChange={this.handleInputChange}
+                name="a3"
+                placeholder="a3"
+              />
+              <Input
+                value={this.state.a4}
+                onChange={this.handleInputChange}
+                name="a4"
+                placeholder="a4"
+              />
+              <Input
+                value={this.state.aRight}
+                onChange={this.handleInputChange}
+                name="aRight"
+                placeholder="aRight"
+              />
+              <Input
+                value={this.state.question2}
+                onChange={this.handleInputChange}
+                name="question2"
+                placeholder="question2"
+              />
+              <Input
+                value={this.state.b1}
+                onChange={this.handleInputChange}
+                name="b1"
+                placeholder="b1"
+              />
+              <Input
+                value={this.state.b2}
+                onChange={this.handleInputChange}
+                name="b2"
+                placeholder="b2"
+              />
+              <Input
+                value={this.state.b3}
+                onChange={this.handleInputChange}
+                name="b3"
+                placeholder="b3"
+              />
+              <Input
+                value={this.state.b4}
+                onChange={this.handleInputChange}
+                name="b4"
+                placeholder="b4"
+              />
+              <Input
+                value={this.state.bRight}
+                onChange={this.handleInputChange}
+                name="bRight"
+                placeholder="bRight"
               />
               <FormBtn
-                disabled={!(this.state.quiztitle && this.state.quizlocation)}
+                disabled={!(this.state.question1)}
                 onClick={this.handleFormSubmit}
               >
                 Submit
@@ -96,11 +172,11 @@ class Admindash extends Component {
               <List>
                 {this.state.quizcode.map(quizcd => (
                   <ListItem key={quizcd._id}>
-                    <Link to={"/musuemquiz/" + quizcd._id}>
+                    {/* <Link to={"/musuemquiz/" + quizcd._id}> */}
                       <strong>
-                        {quizcd.quiztitle} and {quizcd.quizlocation}
+                        {quizcd.question}
                       </strong>
-                    </Link>
+                    {/* </Link> */}
                     <DeleteBtn onClick={() => this.deleteQuiz(quizcd._id)} />
                   </ListItem>
                 ))}
@@ -111,9 +187,9 @@ class Admindash extends Component {
           </Col>
         </Row>
         <Footer></Footer>
-      </Container>
+      </Container> 
     );
   }
 }
 
-export default Admindash;
+export default Admindash; 

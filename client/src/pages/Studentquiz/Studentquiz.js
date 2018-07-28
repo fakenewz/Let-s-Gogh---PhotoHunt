@@ -4,245 +4,181 @@ import Footer from "../../components/Footer";
 import API from "./../../utils/API"
 import "./Studentquiz.css";
 
-class quizApp extends React.Component {
-    constructor(props) {
-        super(props);
+class radioButtons extends Component {
+  constructor() {
+    super();
 
-        this.state = {
-            quiz: this.getData(),
-            activeView: null,
-            currentQuestionIndex: 0,
-            answers: [],
-            correctyn: []
-        };
+    this.state = {
+      answersArray: [],
+      answer1: "",
+      answer2: "",
+      quiz: { "title": "Field Museum: Fact or Fiction?", "image": "../../dinosaur.GIF", "introduction": "What happened to the dinosaurs? Where are their living descendants? Test your knowledge as you tour the Field Museum's latest exhibit!" },
+      currentQuestionIndex: 0,
+      questions: [],
+      isButtonDisabled: false
+    };
 
-        this.submitAnswer = this.submitAnswer.bind(this);
+    this.handleChange1 = this.handleChange1.bind(this);
+    this.handleChange2 = this.handleChange2.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.getData()
+  };
+
+  getData = () => {
+    API.getQuizzes()
+      .then(res =>
+        this.setState({
+          questions: res.data
+        })
+      )
+      .catch(err => console.log(err));
+  }
+
+  handleChange1 = (event1) => {
+    this.setState({
+      answer1: event1.target.value
+    });
+  }
+
+  handleChange2 = (event2) => {
+    this.setState({
+      answer2: event2.target.value
+    });
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+
+    API.saveStudentquiz({
+      answer1: this.state.answer1,
+      answer2: this.state.answer2,
+      answersArray: this.state.answersArray.concat(this.state.answer1, this.state.answer2),
+    }).then(
+      this.setState({
+        isButtonDisabled: true
+      })
+    )
+      .catch(err => console.log(err));
+  }
+
+  // displayContent = questionList.map((item, index) => (
+  //   <li key={index}>{item.answers[0]} {item.answers[1]}</li>
+  //  ));
+  //  displayContent = (
+  //      <li>{this.state.questions[0].answers[0]}</li>
+  // )
+
+
+  render() {
+    let questionList = this.state.questions;
+    // console.log("balh", this.state.answersArray)
+    // console.log("dfdfddfd", this.state.questions)
+
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit}>
+
+          {this.state.questions.map((ques, index) => (
+
+          <li key={index}>
+              <div id="coffee">
+                {ques.question1}
+
+                <input type="radio"
+                  name="coffee"
+                  value={ques.a1}
+                  checked={this.state.answer1 === ques.a1}
+                  onChange={this.handleChange1}
+                />
+                {ques.a1}
+
+                <input type="radio"
+                  name="coffee"
+                  value={ques.a2}
+                  checked={this.state.answer1 === ques.a2}
+                  onChange={this.handleChange1}
+                />
+                {ques.a2}
+
+                <input type="radio"
+                  name="coffee"
+                  value={ques.a3}
+                  checked={this.state.answer1 === ques.a3}
+                  onChange={this.handleChange1}
+                />
+                {ques.a3}
+
+                <input type="radio"
+                  name="coffee"
+                  value={ques.a4}
+                  checked={this.state.answer1 === ques.a4}
+                  onChange={this.handleChange1}
+                />
+                {ques.a4}
+
+              </div>
+
+            </li>
+          )
+          )
+          }
+
+        {/* //   <button type="submit" disabled={this.state.isButtonDisabled}> Submit Answer </button> */}
+
+        {/* // </form> */}
+
+        {/* // <form onSubmit={this.handleSubmit}> */}
+
+          {this.state.questions.map((q, i) => (
+
+            <li key={i}>
+              <div id="cups">
+                {q.question2}
+
+                <input type="radio"
+                  name="cups"
+                  value={q.b1}
+                  checked={this.state.answer2 === q.b1}
+                  onChange={this.handleChange2}
+                />
+                {q.b1}
+
+                <input type="radio"
+                  name="cups"
+                  value={q.b2}
+                  checked={this.state.answer2 === q.b2}
+                  onChange={this.handleChange2}
+                />
+                {q.b2}
+
+                <input type="radio"
+                  name="cups"
+                  value={q.b3}
+                  checked={this.state.answer2 === q.b3}
+                  onChange={this.handleChange2}
+                />
+                {q.b3}
+
+                <input type="radio"
+                  name="cups"
+                  value={q.b4}
+                  checked={this.state.answer2 === q.b4}
+                  onChange={this.handleChange2}
+                />
+                {q.b4}
+              </div>
+            </li>
+             )
+          )
+          }
+
+          <button type="submit" disabled={this.state.isButtonDisabled}> Submit Answer </button>
+        </form>
+      </div>
+      )
     }
-    
-    render() {
-        return (
-            <div className="App">
-                <div className="App-header">
-                    <h2 style={{ fontFamily: 'cursive', fontSize: '1.8em' }}>
-                        {this.state.quiz.title}
-                    </h2>
-                </div>
-                
-                {this.state.activeView === 'quizOverview' &&
-                    <QuizDescription
-                        quiz={this.state.quiz}
-                        showQuizQuestion={this.showQuizQuestion.bind(this, 0)}
-                    />
-                }
-                {this.state.activeView === 'quizQuestions' &&
-                    <Quizinator
-                        submitAnswer={this.submitAnswer}
-                        quiz={this.state.quiz}
-                        currentQuestionIndex={this.state.currentQuestionIndex}
-                        buttonsDisabled={this.state.buttonsDisabled}
-                        transitionDelay={this.state.transitionDelay}
-                    />
-                }
-                {this.state.activeView === 'quizResults' &&
-                    <QuizResults
-                        results={this.getResults()}
-                        thumbnail={this.state.quiz.thumbnail}
-                    />
-                }
-            </div>
-        );
-    };
-
-    componentDidMount() {
-        this.showQuizDescription();
-    };
-
-    getData() {
-      var quiz = require('../../utils/quiz.json'),
-            questions = require('../../utils/questions.json');
-
-        quiz.questions = questions;
-        return quiz;
-    };
-
-    showQuizDescription() {
-        this.setState((prevState, props) => {
-            return {
-                activeView: 'quizOverview'
-            };
-        });
-    }
-    
-    showQuizQuestion(index) {
-        console.log(index);
-        this.setState((prevState) => {
-            return {
-                currentQuestionIndex: index,
-                activeView: 'quizQuestions',
-                buttonsDisabled: false,
-                transitionDelay: 1000
-            };
-        });
-    };
-    
-    showResults() {
-        this.setState((prevState) => {
-            return {
-                activeView: 'quizResults'
-            };
-        });
-    }
-
-    submitAnswer(answer) {
-        var app = this;
-
-        // save answer and disable button clicks
-        console.log("answer", answer)
-
-        API.saveStudentquiz({ answers: [answer.value], correctyn: [answer.isCorrect] })
-      
-        this.setState((prevState) => { 
-            return {
-                buttonsDisabled: true,
-                answers: Object.assign({ [this.state.currentQuestionIndex]: answer }, prevState.answers)
-            };
-        });
-        console.log("answerszszsz", this.state.answers)
- 
-       
-        // pause for question result to show before callback
-        window.setTimeout(function () {
-
-            // determine if there are any other questions to show or show results
-            let nextIndex = app.state.currentQuestionIndex + 1,
-                hasMoreQuestions = (nextIndex < app.state.quiz.numOfQuestions);
-
-            (hasMoreQuestions) ? app.showQuizQuestion(nextIndex) : app.showResults();
-            
-        }, this.state.transitionDelay);
-    };
-    
-    getResults() {
-        return this.state.quiz.questions.map((item, index) => {
-            return Object.assign({}, item, this.state.answers[index]);
-        });
-    };
-
-}
-
-class QuizDescription extends React.Component {
-    render() {
-        let quiz = this.props.quiz;
-        let image = quiz.image;
-        let htmlDescription = function () { return { __html: quiz.introduction }; };
-
-        return (
-            <section className="overviewSection">
-                <div className="imageWrapper">
-                    <img src={image.filePath} alt={image.altText} />
-                </div>
-                <div className="description" dangerouslySetInnerHTML={htmlDescription()} />
-                <button onClick={this.props.showQuizQuestion}>Begin</button>
-            </section>
-        );
-    };
-}
-
-class Quizinator extends React.Component {
-    render() {
-        let quiz = this.props.quiz,
-            question = this.props.quiz.questions[this.props.currentQuestionIndex],
-            htmlQuestion = function () {
-                return { __html: question.question };
-            },
-            answerButtons = question.answers.map((answer, i) =>
-                <p key={i}><button className={answer.answer} onClick={this.handleClick.bind(this, i)} disabled={this.props.buttonsDisabled}>{answer}</button></p>
-        );
-
-        return (
-            <section className={'quizSection' + (this.props.buttonsDisabled ? ' transitionOut' : '')}>
-                <div className="questionNumber">Question {this.props.currentQuestionIndex + 1} / {quiz.questions.length}</div>
-                <hr />
-                <div className="question">
-                    <div dangerouslySetInnerHTML={htmlQuestion()} />
-                </div>
-                <div className="answers">
-                    {answerButtons}
-                </div>
-                
-            </section>
-        );
-    }
-
-    handleClick(index, event) {
-        let question = this.props.quiz.questions[this.props.currentQuestionIndex],
-            answer = { value: index + 1, isCorrect: (index + 1 === question.correct) },
-            target = event.currentTarget;
-
-        this.props.submitAnswer(answer);
-
-        target.classList.add('clicked', answer.isCorrect ? 'correct' : 'incorrect');
-
-        window.setTimeout(function () {
-            target.classList.remove('clicked', 'correct', 'incorrect');
-        }, this.props.transitionDelay);
-    }
-}
-
-class QuizResults extends React.Component {
-    render() {
-        const badgeStyle = {
-            backgroundImage: `url(${this.props.thumbnail.filePath})`,
-            width: this.props.thumbnail.height,
-            height: this.props.thumbnail.height,
-            lineHeight: this.props.thumbnail.height + 'px'
-        };
-        
-        let numCorrect = 0, score = 0, possibleScore = 0;
-
-        this.props.results.forEach((answer) => {
-            if (!!answer.isCorrect) {
-                numCorrect += 1;
-                score += ((answer.level || 1) * 10);
-            }
-            possibleScore += ((answer.level || 1) * 10);
-        });
-        
-        const results = this.props.results.map((item, i) => {
-            let questionHtml = function () { return { __html: item.question }; };
-            let explanationHtml = function () { return { __html: item.explanation }; };
-            let response =
-                (item.isCorrect === true) ?
-                    "You correctly answered " :
-                (item.isCorrect === false) ? 
-                    `You answered ${item.answers[item.value - 1]}. The correct answer is ` :
-                    "The correct answer is ";
-
-            return (
-                <li className={"result" + (item.isCorrect ? " correct" : " incorrect")} key={i}>
-                    <div className="question" dangerouslySetInnerHTML={questionHtml()} />
-                    <div className="response">
-                        {response} <b>{item.answers[item.correct - 1]}</b>
-                    </div>
-                    <p className="explanation">
-                        <i dangerouslySetInnerHTML={explanationHtml()} />
-                    </p>
-                </li>
-            );
-        });
-
-        return (
-            <section className="resultsSection">
-                <h2>Results</h2>
-                <div className="scoring">
-                    You got <em>{numCorrect}</em> correct scoring a total of <b>{score}</b> out of a possible <b>{possibleScore}</b>.
-                </div>
-                <div className="badge" style={badgeStyle}>{score}</div>
-                <ol>{results}</ol>
-                <Footer></Footer>
-            </section>
-        );
-    }
-}
-
-export default quizApp; 
+  }
+  export default radioButtons
