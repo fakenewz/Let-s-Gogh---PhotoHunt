@@ -14,6 +14,7 @@ const quizSchema = new Schema({
   b2: { type: String, required: false },
   b3: { type: String, required: false },
   b4: { type: String, required: false },
+  photo: { type: String, required: true },
   bRight: { type: String, required: false },
   correctOnes: [{ type: String }],
   date: { type: Date, default: Date.now }

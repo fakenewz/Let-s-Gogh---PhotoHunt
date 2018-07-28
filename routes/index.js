@@ -5,7 +5,8 @@ var codecontroller = require("../controllers/codeController");
 var teacherController = require("../controllers/teacherController");
 var studentquizController = require("../controllers/studentquizController")
 const db = require("../models");
-const fs = require('fs');
+const multer = require("multer");
+
 
 console.log("dfdfd");
 
@@ -100,16 +101,63 @@ router.delete('/musuemquiz/:id', teacherController.remove);
 // router.post('/studentquiz', studentquizController.create);
 console.log("see here")
 
-function compareRoute(req, res) {
-  // db.Quiz
-  //   .create(req.body)
-  //   .then(dbModel => res.json(dbModel))
-  //   .catch(err => res.status(422).json(err))
 
-  db.QuizResults
-    .create(req.body)
-    .then(dbModel => res.json(dbModel))
-    .catch(err => res.status(422).json(err))
+const acceptedFilesTypes = [
+  "image/jpeg",
+  "image/tiff",
+  "image/png",
+  "image/WebP"
+ ];
+ 
+ const checkFileType = fileType => {
+  let safe = false;
+  for (let type of acceptedFilesTypes) {
+    console.log(type, fileType);
+    if (fileType === type) {
+      safe = true;
+    }
+  }
+  console.log(safe);
+  return safe;
+ };
+ 
+ const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    console.log("pups.js: Disk Storage Configuration on Multer ‘files’ folder");
+    cb(null, "files/")
+  },
+  filename: function (req, file, cb) {
+    console.log("pups.js: Multer file", file);
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+ })
+ 
+ // var upload = multer({ dest: ‘../../uploads’})
+ // const upload = multer({ storage: storage });
+ const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, next) => {
+    if (!checkFileType(file.mimetype)) {
+      req.fileValidationError = true;
+      console.log("pups.js: ERROR - Multer file format not valid format");
+      return next(null, false, req.fileValidationError);
+    } else {
+      console.log("pups.js: Multer File binary format validated");
+      next(null, true);
+    }
+  }
+ });
+
+// function compareRoute(req, res) {
+//   // db.Quiz
+//   //   .create(req.body)
+//   //   .then(dbModel => res.json(dbModel))
+//   //   .catch(err => res.status(422).json(err))
+
+//   db.QuizResults
+//     .create(req.body)
+//     .then(dbModel => res.json(dbModel))
+//     .catch(err => res.status(422).json(err))
 
 // db.Quiz.find({correctOnes: req.body.correctOnes})
 // db.QuizResults.find({answersArray: req.body.answersArray})
@@ -128,9 +176,9 @@ function compareRoute(req, res) {
 //  )
 // )
 // console.log("scoreArray", scoreArray)
-}
+// }
 
-router.post('/studentquiz', compareRoute);
+// router.post('/studentquiz', compareRoute);
 
 
 // do a loop or switch statement
@@ -138,5 +186,7 @@ router.post('/studentquiz', compareRoute);
 // run a loop and compare against the real answers array
 // req.params.code_id
 // ref
+
+router.post(upload.single("picture"), studentquizController.create);
 
 module.exports = router;  

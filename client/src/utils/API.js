@@ -60,7 +60,17 @@ export default {
     return axios.get("/logout")
   },
 //Studentquiz
-  saveStudentquiz: function(o) {
-  return axios.post("/studentquiz", o)
-  }
+  saveStudentquiz: function(QuizData) {
+      return axios({
+        method: "post",
+        url: "/studentquiz",
+        data: QuizData,
+        headers: {
+          Accept:'application/json',
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+    },
 };
+
+

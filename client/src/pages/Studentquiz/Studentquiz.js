@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Studentquiz.css';
 import Footer from "../../components/Footer";
 import API from "./../../utils/API"
-import "./Studentquiz.css";
+
 
 class radioButtons extends Component {
   constructor() {
@@ -51,18 +51,24 @@ class radioButtons extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    
+        if (this.state.answer1 && this.state.answer2) {
+          let quizdata = new FormData();
+          quizdata.set('answer1', this.state.answer1); //this is the photo url on MongoDB, not the file itself
+          quizdata.set('answer2', this.state.answer2);
+          quizdata.set('photo', this.state.photo); //this is the photo url on MongoDB, not the file itself
+          quizdata.set('date', this.state.date);
+          quizdata.set('picture', this.fileInput.current.files[0], this.fileInput.current.files[0].name);
+    
 
-    API.saveStudentquiz({
-      answer1: this.state.answer1,
-      answer2: this.state.answer2,
-      answersArray: this.state.answersArray.concat(this.state.answer1, this.state.answer2),
-    }).then(
-      this.setState({
-        isButtonDisabled: true
-      })
-    )
+        API.saveStudentquiz(quizdata).then(
+            this.setState({
+            isButtonDisabled: true
+        })
+        )
       .catch(err => console.log(err));
-  }
+     }
+    }
 
   // displayContent = questionList.map((item, index) => (
   //   <li key={index}>{item.answers[0]} {item.answers[1]}</li>
@@ -119,6 +125,14 @@ class radioButtons extends Component {
                 />
                 {ques.a4}
 
+    <input type="file"
+                  name="coffee"
+                  value={ques.a5}
+                  checked={this.state.answer1 === ques.a5}
+                  onChange={this.handleChange1}
+                />
+                {ques.a5}
+
               </div>
 
             </li>
@@ -169,6 +183,14 @@ class radioButtons extends Component {
                   onChange={this.handleChange2}
                 />
                 {q.b4}
+
+                <input type="file"
+                  name="cups"
+                  value={q.b5}
+                  checked={this.state.answer1 === q.b5}
+                  onChange={this.handleChange1}
+                />
+                {q.b5}
               </div>
             </li>
              )
@@ -180,5 +202,6 @@ class radioButtons extends Component {
       </div>
       )
     }
-  }
+}
+
   export default radioButtons
