@@ -69,15 +69,18 @@ class radioButtons extends Component {
         //   quizdata.set('picture', this.fileInput.current.files[0], this.fileInput.current.files[0].name);
     
 
-        API.saveStudentquiz(quizdata).then(
-            this.setState({
-            isButtonDisabled: true
-        })
-        )
-      .catch(err => console.log(err));
-     }
-    }
-
+        API.saveStudentquiz({
+          answer1: this.state.answer1,
+          answer2: this.state.answer2,
+          answersArray: this.state.answersArray.concat(this.state.answer1, this.state.answer2),
+         }).then(
+           this.setState({
+             isButtonDisabled: true
+           })
+         )
+           .catch(err => console.log(err));
+       }
+  
   // displayContent = questionList.map((item, index) => (
   //   <li key={index}>{item.answers[0]} {item.answers[1]}</li>
   //  ));
@@ -204,7 +207,7 @@ class radioButtons extends Component {
       </div>
       )
     }
-  
+  }
   
 
   export default radioButtons
