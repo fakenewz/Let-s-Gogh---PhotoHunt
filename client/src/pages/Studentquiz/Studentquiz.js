@@ -12,6 +12,7 @@ class radioButtons extends Component {
       answersArray: [],
       answer1: "",
       answer2: "",
+      photo: "",
       quiz: { "title": "Field Museum: Fact or Fiction?", "image": "../../dinosaur.GIF", "introduction": "What happened to the dinosaurs? Where are their living descendants? Test your knowledge as you tour the Field Museum's latest exhibit!" },
       currentQuestionIndex: 0,
       questions: [],
@@ -20,6 +21,7 @@ class radioButtons extends Component {
 
     this.handleChange1 = this.handleChange1.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
+    this.handleChange3 = this.handleChange3.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -49,7 +51,13 @@ class radioButtons extends Component {
     });
   }
 
-  handleFormSubmit = event => {
+  handleChange3 = (event3) => {
+    this.setState({
+      answer3: event3.target.value
+    });
+  }
+
+  handleSubmit = event => {
     event.preventDefault();
     
         if (this.state.answer1 && this.state.answer2) {
@@ -109,7 +117,7 @@ class radioButtons extends Component {
                 />
                 {ques.a2}
 
-                <input type="radio"
+                <input type="file"
                   name="coffee"
                   value={ques.a3}
                   checked={this.state.answer1 === ques.a3}
@@ -124,7 +132,14 @@ class radioButtons extends Component {
                   onChange={this.handleChange1}
                 />
                 {ques.a4}
-
+                
+                <input type="file"
+                  name="coffee"
+                  value={ques.a5}
+                  checked={this.state.answer1 === ques.a5}
+                  onChange={this.handleChange1}
+                />
+                {ques.a5}
               </div>
 
             </li>

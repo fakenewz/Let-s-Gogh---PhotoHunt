@@ -1,4 +1,15 @@
 const db = require("../models");
+const Post = require("../models");
+const passport = require("../passport");
+var cloudinary = require("cloudinary");
+
+// Cloudinary Configuraiton
+cloudinary.config({
+cloud_name: 'dfdpnpq6l',
+api_key: '323888751196637',
+api_secret: 'jucvaGBBrrvni4mEDXAylf5-2ys'
+// jucvaGBBrrvni4mEDXAylf5-2ys api full secret key - get an error when fully implemented
+});
 
 module.exports = {
  
