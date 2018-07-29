@@ -5,9 +5,8 @@ var codecontroller = require("../controllers/codeController");
 var teacherController = require("../controllers/teacherController");
 var studentquizController = require("../controllers/studentquizController")
 const db = require("../models");
-const fs = require('fs');
+const multer = require("multer");
 
-console.log("dfdfd");
 
 router.get('/register', auth.register);
 
@@ -32,8 +31,7 @@ router.get('/quizcreation', codecontroller.findAll);
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 
-
-    db.Code.find({code: req.body.code})
+  db.Code.find({code: req.body.code})
     .then(foundCode => {
       if (foundCode.length == 0) {
         cb('Does not exist',null);
@@ -42,29 +40,6 @@ router.get('/quizcreation', codecontroller.findAll);
       }
      })
      .catch(err =>  console.log("error", err)); 
-
-    //  db.Quiz.findOne({ code: req.body.code})
-    //  .populate('codeID').exec((err, codeID) => {
-    //    console.log("populate" + codeID);
-    //    console.log("green beans", codeID.correctOnes)
-    //  })
-
-      // db.QuizResults.find({ question1: req.body.question1})
-    //  .populate('codeID').exec((err, codeID) => {
-      //  console.log("populate" + codeID);
-       console.log("food") 
-     
-
-    //  db.Quiz.find({ a1: req.body.a1 })
-    //  .then(foundArray => {
-    //   if (foundArray.length == 0) {
-    //     console.log('Does not exist');
-    //   } else {
-    //     console.log("Bee", foundArray)
-    //   }
-    //  })
-    //  .catch(err =>  console.log("error", err)); 
-
 }
 
 router.post('/quizcreation', createCode)
@@ -82,35 +57,6 @@ function createQuiz(req, res) {
     .then(dbModel => res.json(dbModel),
     console.log("dbModel for create", req.body))
     .catch(err => res.status(422).json(err));
-
-  //   fs.readFile('./test.json', function(err, data) {
-  //     console.log("gift cards")
-  //     if (err) {
-  //       console.error(err);
-  //     }
-  //     console.log("gift horse", data)
-  //     var text = JSON.parse(data);
-  //     console.log("gift presents")
-  //     var newText = {
-  //       type: req.body.type,
-  //       level: req.body.level,
-  //       question: req.body.question,
-  //       answers: req.body.answers,
-  //       correct: req.body.correct,
-  //       explanation: req.body.explanation
-  //     };
-  //   console.log("bag of chips")
-  //   text.push(newText);
-
-  //   console.log("chips poker", text)
-  //   fs.writeFile('./test.json', JSON.stringify(text, null, 4), 
-  //   function(err) {
-  //     if (err) {
-  //       console.error(err);
-  //     }
-  //     res.json(text);
-  //   });
-  // });
 }
 
 router.post('/musuemquiz', createQuiz)
@@ -123,45 +69,50 @@ router.delete('/musuemquiz/:id', teacherController.remove);
 router.get('/studentquiz/:codeID', teacherController.findByCode)
 
 // router.post('/studentquiz', studentquizController.create);
-// console.log("see here")
 
-function compareRoute(req, res) {
-  // db.Quiz
-  //   .create(req.body)
-  //   .then(dbModel => res.json(dbModel))
-  //   .catch(err => res.status(422).json(err))
+const acceptedFilesTypes = [
+  "image/jpeg",
+  "image/tiff",
+  "image/png",
+  "image/WebP"
+ ];
+ 
+ const checkFileType = fileType => {
+  let safe = false;
+  for (let type of acceptedFilesTypes) {
+    console.log(type, fileType);
+    if (fileType === type) {
+      safe = true;
+    }
+  }
+  console.log(safe);
+  return safe;
+ };
+ 
+ const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "files/")
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+ })
+ 
+ const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, next) => {
+    if (!checkFileType(file.mimetype)) {
+      req.fileValidationError = true;
+      console.log("Not Valid");
+      return next(null, false, req.fileValidationError);
+    } else {
+      console.log("Validated");
+      next(null, true);
+    }
+  }
+ });
 
-  db.QuizResults
-    .create(req.body)
-    .then(dbModel => res.json(dbModel))
-    .catch(err => res.status(422).json(err))
 
-// db.Quiz.find({correctOnes: req.body.correctOnes})
-// db.QuizResults.find({answersArray: req.body.answersArray})
-
-// console.log("cobra", req.body.answersArray)
-// console.log("snake", req.body.correctOnes)
-
-// function compare(answersArray, correctOnes){
-//   const scoreArray =[];
-// }
-
-// answersArray.forEach((e1) => correctOnes.forEach((e2) => 
-//   {if (e1 === e2) 
-//     {scoreArray.push(e1)} 
-//   }
-//  )
-// )
-// console.log("scoreArray", scoreArray)
- }
-
-router.post('/studentquiz', compareRoute);
-
-
-// do a loop or switch statement
-// save answers as an array
-// run a loop and compare against the real answers array
-// req.params.code_id
-// ref
+router.post('/studentquiz/', upload.single("picture"), studentquizController.create);
 
 module.exports = router;  
