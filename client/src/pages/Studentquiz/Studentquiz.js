@@ -60,13 +60,13 @@ class radioButtons extends Component {
   handleSubmit = event => {
     event.preventDefault();
     
-        if (this.state.answer1 && this.state.answer2) {
-          let quizdata = new FormData();
-          quizdata.set('answer1', this.state.answer1); //this is the photo url on MongoDB, not the file itself
-          quizdata.set('answer2', this.state.answer2);
-          quizdata.set('photo', this.state.photo); //this is the photo url on MongoDB, not the file itself
-          quizdata.set('date', this.state.date);
-          quizdata.set('picture', this.fileInput.current.files[0], this.fileInput.current.files[0].name);
+        // if (this.state.answer1 && this.state.answer2) {
+        //   let quizdata = new FormData();
+        //   quizdata.set('answer1', this.state.answer1); //this is the photo url on MongoDB, not the file itself
+        //   quizdata.set('answer2', this.state.answer2);
+        //   quizdata.set('photo', this.state.photo); //this is the photo url on MongoDB, not the file itself
+        //   quizdata.set('date', this.state.date);
+        //   quizdata.set('picture', this.fileInput.current.files[0], this.fileInput.current.files[0].name);
     
 
         API.saveStudentquiz(quizdata).then(
@@ -204,7 +204,7 @@ class radioButtons extends Component {
       </div>
       )
     }
-  }
-
+  
+  
 
   export default radioButtons
