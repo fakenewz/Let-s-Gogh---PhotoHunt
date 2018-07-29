@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const quizSchema = new Schema({
-  // _id: Schema.Types.ObjectId,
+  code: { type: String, required: true },
   question1: { type: String, required: true },
   a1: { type: String, required: false },
   a2: { type: String, required: false },
@@ -22,4 +22,4 @@ const quizSchema = new Schema({
 
 const Quiz = mongoose.model("Quiz", quizSchema);
 
-module.exports = Quiz;
+module.exports = Quiz

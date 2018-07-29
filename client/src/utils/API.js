@@ -27,6 +27,10 @@ export default {
   getQuiz: function(e) {
     return axios.get("/musuemquiz" + e);
   },
+  // Get quiz by code
+  getQuizByCode: function(w) {
+    return axios.get("/studentquiz/" + w);
+  },
   // Delete
   deleteQuiz: function(e) {
     return axios.delete("/musuemquiz" + e);
@@ -57,10 +61,10 @@ export default {
     },
   //Register
   signOut: function() {
-    return axios.get("/logout")
+    return axios.get("logout")
   },
 //Studentquiz
   saveStudentquiz: function(o) {
-  return axios.post("/studentquiz", o)
+  return axios.post("/studentquiz/", o)
   }
 };

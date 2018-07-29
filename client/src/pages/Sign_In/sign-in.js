@@ -79,16 +79,18 @@ handleFormSubmit = event => {
         code: this.state.code,
         studentID: this.state.studentID,
     })
-    .then(() => {
-      this.props.history.push('/studentquiz')
-    }).catch((error) => {
-      console.log("blah blah")
-      console.log(error)
+    .then(res => {
+      this.props.history.push({
+        pathname: '/studentquiz/',
+        state: { code: res.data }
     })
-
-  };
-
-    /*******/
+    // .catch((error) => {
+    //   console.log("blah blah")
+    //   console.log(error)
+    // })
+   })
+  }
+    /*******/ 
 
   render() {
     if (this.state.redirectTo) {

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import './Studentquiz.css';
 import Footer from "../../components/Footer";
 import API from "./../../utils/API"
-import "./Studentquiz.css";
 
 class radioButtons extends Component {
   constructor() {
@@ -12,10 +10,9 @@ class radioButtons extends Component {
       answersArray: [],
       answer1: "",
       answer2: "",
-      quiz: { "title": "Field Museum: Fact or Fiction?", "image": "../../dinosaur.GIF", "introduction": "What happened to the dinosaurs? Where are their living descendants? Test your knowledge as you tour the Field Museum's latest exhibit!" },
-      currentQuestionIndex: 0,
       questions: [],
-      isButtonDisabled: false
+      isButtonDisabled: false,
+      letsSee: [{}]
     };
 
     this.handleChange1 = this.handleChange1.bind(this);
@@ -24,17 +21,23 @@ class radioButtons extends Component {
   }
 
   componentDidMount() {
-    this.getData()
+    console.log("vvvvvvv", this.props.location.state.code.code)
+    this.getData(this.props.location.state.code.code)
   };
 
-  getData = () => {
-    API.getQuizzes()
-      .then(res =>
-        this.setState({
-          questions: res.data
-        })
-      )
-      .catch(err => console.log(err));
+
+  getData = (codeID) => {
+    let stateVar = this.state.questions
+    console.log("ffffffff", stateVar)
+    console.log("gggggggg", codeID)
+    API.getQuizByCode(codeID)
+    .then(res =>
+      this.setState({
+        questions: stateVar.concat(res.data),
+        letsSee: res.data
+      })
+    )
+    .catch(err => console.log(err));
   }
 
   handleChange1 = (event1) => {
@@ -53,9 +56,9 @@ class radioButtons extends Component {
     event.preventDefault();
 
     API.saveStudentquiz({
-      answer1: this.state.answer1,
-      answer2: this.state.answer2,
-      answersArray: this.state.answersArray.concat(this.state.answer1, this.state.answer2),
+     answer1: this.state.answer1,
+     answer2: this.state.answer2,
+     answersArray: this.state.answersArray.concat(this.state.answer1, this.state.answer2),
     }).then(
       this.setState({
         isButtonDisabled: true
@@ -74,8 +77,8 @@ class radioButtons extends Component {
 
   render() {
     let questionList = this.state.questions;
-    // console.log("balh", this.state.answersArray)
-    // console.log("dfdfddfd", this.state.questions)
+    let fromUser = this.state.answersArray.concat(this.state.answer1, this.state.answer2);
+    let count = 0
 
     return (
       <div>
@@ -120,17 +123,11 @@ class radioButtons extends Component {
                 {ques.a4}
 
               </div>
-
             </li>
-          )
-          )
+
+            )
+           )
           }
-
-        {/* //   <button type="submit" disabled={this.state.isButtonDisabled}> Submit Answer </button> */}
-
-        {/* // </form> */}
-
-        {/* // <form onSubmit={this.handleSubmit}> */}
 
           {this.state.questions.map((q, i) => (
 
@@ -169,14 +166,32 @@ class radioButtons extends Component {
                   onChange={this.handleChange2}
                 />
                 {q.b4}
+
+        {console.log("kittens", fromUser)}
+        {console.log("toads", q.correctOnes)}
+
+        {console.log("kittens", fromUser[0])}
+        {console.log("toads", q.correctOnes[0])}
+
+        {/* {if (a[0] == q.correctOnes[0]) {
+          count = count+1;
+    } else {
+       console.log("card table")
+    }} */}
+
+        
+
               </div>
             </li>
              )
           )
-          }
+        }
 
-          <button type="submit" disabled={this.state.isButtonDisabled}> Submit Answer </button>
-        </form>
+
+        
+        <button type="submit" disabled={this.state.isButtonDisabled}> Submit Answer </button>
+
+       </form>
       </div>
       )
     }

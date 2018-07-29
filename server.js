@@ -34,6 +34,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
+// app.use('/api', routes); 
 app.use(routes); 
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/letsgoghphotohunt");

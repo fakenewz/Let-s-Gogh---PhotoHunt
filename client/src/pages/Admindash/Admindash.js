@@ -11,6 +11,7 @@ import Footer from "../../components/Footer";
 class Admindash extends Component {
   state = {
     quizcode: [],
+    code: "",
     question1: "",
     a1: "",
     a2: "", 
@@ -34,7 +35,7 @@ class Admindash extends Component {
   loadQuizzes = () => {
     API.getQuizzes()
       .then(res =>
-        this.setState({ quizcode: res.data, question1: "", a1: "", a2: "", a3: "", a4: "", aRight: "", question2: "", b1: "", b2: "", b3: "", b4: "", bRight: "",})
+        this.setState({ quizcode: res.data, code: "", question1: "", a1: "", a2: "", a3: "", a4: "", aRight: "", question2: "", b1: "", b2: "", b3: "", b4: "", bRight: "",})
       )
       .catch(err => console.log(err));
   };
@@ -56,6 +57,7 @@ class Admindash extends Component {
     event.preventDefault();
     if (this.state.question1) {
       API.saveQuiz({
+        code: this.state.code,
         question1: this.state.question1,
         a1: this.state.a1,
         a2: this.state.a2, 
@@ -81,9 +83,15 @@ class Admindash extends Component {
         <Row>
           <Col size="sm-6">
             <Jumbotron>
-              <h1>TEST</h1>
+              <h1>Quiz Template</h1>
             </Jumbotron>
             <form>
+              <Input
+                value={this.state.code}
+                onChange={this.handleInputChange}
+                name="code"
+                placeholder="code"
+              />
               <Input
                 value={this.state.question1}
                 onChange={this.handleInputChange}
@@ -166,7 +174,7 @@ class Admindash extends Component {
           </Col>
           <Col size="sm-6">
             <Jumbotron>
-              <h1>Quiz</h1>
+              <h1></h1>
             </Jumbotron>
             {this.state.quizcode.length ? (
               <List>

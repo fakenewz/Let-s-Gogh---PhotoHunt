@@ -42,6 +42,29 @@ router.get('/quizcreation', codecontroller.findAll);
       }
      })
      .catch(err =>  console.log("error", err)); 
+
+    //  db.Quiz.findOne({ code: req.body.code})
+    //  .populate('codeID').exec((err, codeID) => {
+    //    console.log("populate" + codeID);
+    //    console.log("green beans", codeID.correctOnes)
+    //  })
+
+      // db.QuizResults.find({ question1: req.body.question1})
+    //  .populate('codeID').exec((err, codeID) => {
+      //  console.log("populate" + codeID);
+       console.log("food") 
+     
+
+    //  db.Quiz.find({ a1: req.body.a1 })
+    //  .then(foundArray => {
+    //   if (foundArray.length == 0) {
+    //     console.log('Does not exist');
+    //   } else {
+    //     console.log("Bee", foundArray)
+    //   }
+    //  })
+    //  .catch(err =>  console.log("error", err)); 
+
 }
 
 router.post('/quizcreation', createCode)
@@ -97,8 +120,10 @@ router.put('/musuemquiz/:id', teacherController.update);
 router.delete('/musuemquiz/:id', teacherController.remove);
 
 
+router.get('/studentquiz/:codeID', teacherController.findByCode)
+
 // router.post('/studentquiz', studentquizController.create);
-console.log("see here")
+// console.log("see here")
 
 function compareRoute(req, res) {
   // db.Quiz
@@ -128,7 +153,7 @@ function compareRoute(req, res) {
 //  )
 // )
 // console.log("scoreArray", scoreArray)
-}
+ }
 
 router.post('/studentquiz', compareRoute);
 
