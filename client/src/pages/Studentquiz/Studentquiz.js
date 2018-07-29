@@ -53,7 +53,11 @@ class radioButtons extends Component {
 
   handleChange3 = (event3) => {
     this.setState({
+<<<<<<< HEAD
       answer3: event3.target.value
+=======
+      photo: event3.target.value
+>>>>>>> d033552c1c8b50ac013178807bd12ec65762518a
     });
   }
 
@@ -87,7 +91,7 @@ class radioButtons extends Component {
 
 
   render() {
-    let questionList = this.state.questions;
+    //let questionList = this.state.questions;
     // console.log("balh", this.state.answersArray)
     // console.log("dfdfddfd", this.state.questions)
 
@@ -132,7 +136,11 @@ class radioButtons extends Component {
                   onChange={this.handleChange1}
                 />
                 {ques.a4}
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> d033552c1c8b50ac013178807bd12ec65762518a
                 <input type="file"
                   name="coffee"
                   value={ques.a5}
@@ -140,12 +148,18 @@ class radioButtons extends Component {
                   onChange={this.handleChange1}
                 />
                 {ques.a5}
+<<<<<<< HEAD
+=======
+
+>>>>>>> d033552c1c8b50ac013178807bd12ec65762518a
               </div>
 
             </li>
           )
           )
           }
+          }
+  
 
         {/* //   <button type="submit" disabled={this.state.isButtonDisabled}> Submit Answer </button> */}
 
@@ -195,12 +209,15 @@ class radioButtons extends Component {
              )
           )
           }
+      
+
 
           <button type="submit" disabled={this.state.isButtonDisabled}> Submit Answer </button>
         </form>
       </div>
       )
     }
-}
+  }
+
 
   export default radioButtons
