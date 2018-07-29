@@ -135,13 +135,13 @@ class radioButtons extends Component {
                   onChange={this.handleChange1}
                 />
                 {ques.a4}
-                <input type="file"
+                {/* <input type="file"
                   name="coffee"
                   value={ques.a5}
                   checked={this.state.answer1 === ques.a5}
                   onChange={this.handleChange1}
                 />
-                {ques.a5}
+                {ques.a5} */}
               </div>
 
             </li>
