@@ -1,6 +1,4 @@
 const db = require("../models");
-const Post = require("../models");
-const passport = require("../passport");
 var cloudinary = require("cloudinary");
 
 // Cloudinary Configuraiton
@@ -42,7 +40,7 @@ module.exports = {
           date: req.body.date
         };
         console.log("New quiz Object:", newQuiz);
-        db.Pup
+        db.QuizResults
           .create(newQuiz)
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err));
