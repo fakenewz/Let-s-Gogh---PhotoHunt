@@ -115,13 +115,13 @@ class radioButtons extends Component {
                 />
                 {ques.a2}
 
-                <input type="file"
+                {/*<input type="file"
                   name="coffee"
                   value={ques.a3}
                   checked={this.state.answer1 === ques.a3}
                   onChange={this.handleChange1}
                 />
-                {ques.a3}
+          {ques.a3}*/}
 
                 <input type="radio"
                   name="coffee"
@@ -182,10 +182,10 @@ class radioButtons extends Component {
                 />
                 {q.b4}
 
-          <form action="/upload" enctype="multipart/form-data" method="POST"> 
+          {/*<form action="/upload" enctype="multipart/form-data" method="POST"> 
             <input type="file" name="photo" />
             <input type="submit" value="Upload Photo"/>
-          </form>
+          </form>*/}
 
                 {console.log("kittens", fromUser)}
                 {console.log("toads", q.correctOnes)}
