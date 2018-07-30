@@ -24,6 +24,7 @@ class Admindash extends Component {
     b3: "", 
     b4: "",
     bRight: "",
+    photo: "",
     correctOnes: [],
     username: "",
   };
@@ -35,7 +36,7 @@ class Admindash extends Component {
   loadQuizzes = () => {
     API.getQuizzes()
       .then(res =>
-        this.setState({ quizcode: res.data, code: "", question1: "", a1: "", a2: "", a3: "", a4: "", aRight: "", question2: "", b1: "", b2: "", b3: "", b4: "", bRight: "",})
+        this.setState({ quizcode: res.data, code: "", question1: "", a1: "", a2: "", a3: "", a4: "", aRight: "", question2: "", b1: "", b2: "", b3: "", b4: "", bRight: "", photo: "",})
       )
       .catch(err => console.log(err));
   };
@@ -70,6 +71,7 @@ class Admindash extends Component {
         b3: this.state.b3, 
         b4: this.state.b4,
         bRight: this.state.bRight,
+        photo: this.state.photo,
         correctOnes: this.state.correctOnes.concat(this.state.aRight, this.state.bRight),
       })
         .then(res => this.loadQuizzes())
@@ -163,6 +165,12 @@ class Admindash extends Component {
                 onChange={this.handleInputChange}
                 name="bRight"
                 placeholder="bRight"
+              />
+              <Input
+                value={this.state.photo}
+                onChange={this.handleInputChange}
+                name="photo"
+                placeholder="Upload a Photo"
               />
               <FormBtn
                 disabled={!(this.state.question1)}

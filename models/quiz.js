@@ -16,7 +16,7 @@ const quizSchema = new Schema({
   b4: { type: String, required: false },
   bRight: { type: String, required: false },
   correctOnes: [{ type: String }],
-  // photo: { type: String, required: true },
+  photo: { type: String, required: true },
   date: { type: Date, default: Date.now }
 });
 

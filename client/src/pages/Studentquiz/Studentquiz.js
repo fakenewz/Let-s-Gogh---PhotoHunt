@@ -10,7 +10,6 @@ class radioButtons extends Component {
       answersArray: [],
       answer1: "",
       answer2: "",
-      photo: "",
       questions: [],
       isButtonDisabled: false,
       letsSee: [{}]
@@ -18,7 +17,6 @@ class radioButtons extends Component {
 
     this.handleChange1 = this.handleChange1.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
-    // this.handleChange3 = this.handleChange3.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -54,22 +52,8 @@ class radioButtons extends Component {
     });
   }
 
-  // handleChange3 = (event3) => {
-  //   this.setState({
-  //     photo: event3.target.value
-  //   });
-  // }
-
   handleSubmit = event => {
     event.preventDefault();
-
-    if (this.state.answer1 && this.state.answer2) {
-      let quizdata = new FormData();
-      quizdata.set('answer1', this.state.answer1);
-      quizdata.set('answer2', this.state.answer2);
-      // quizdata.set('photo', this.state.photo);
-      quizdata.set('date', this.state.date);
-      quizdata.set('picture', this.fileInput.current.photoFiles);
 
     API.saveStudentquiz({
      answer1: this.state.answer1,
@@ -81,8 +65,15 @@ class radioButtons extends Component {
       })
     )
       .catch(err => console.log(err));
-   }
   }
+
+  // displayContent = questionList.map((item, index) => (
+  //   <li key={index}>{item.answers[0]} {item.answers[1]}</li>
+  //  ));
+  //  displayContent = (
+  //      <li>{this.state.questions[0].answers[0]}</li>
+  // )
+
 
   render() {
     let questionList = this.state.questions;
@@ -115,7 +106,7 @@ class radioButtons extends Component {
                 />
                 {ques.a2}
 
-                <input type="file"
+                <input type="radio"
                   name="coffee"
                   value={ques.a3}
                   checked={this.state.answer1 === ques.a3}
@@ -131,15 +122,9 @@ class radioButtons extends Component {
                 />
                 {ques.a4}
 
-                {/* <input type="file"
-                  name="coffee"
-                  value={ques.a5}
-                  checked={this.state.answer1 === ques.a5}
-                  onChange={this.handleChange1}
-                />
-                {ques.a5} */}
               </div>
             </li>
+
             )
            )
           }
@@ -182,35 +167,33 @@ class radioButtons extends Component {
                 />
                 {q.b4}
 
-          <form action="/upload" enctype="multipart/form-data" method="POST"> 
-            <input type="file" name="photo" />
-            <input type="submit" value="Upload Photo"/>
-          </form>
+        {console.log("kittens", fromUser)}
+        {console.log("toads", q.correctOnes)}
 
-                {console.log("kittens", fromUser)}
-                {console.log("toads", q.correctOnes)}
+        {console.log("kittens", fromUser[0])}
+        {console.log("toads", q.correctOnes[0])}
 
-                {console.log("kittens", fromUser[0])}
-                {console.log("toads", q.correctOnes[0])}
+        {/* {if (a[0] == q.correctOnes[0]) {
+          count = count+1;
+    } else {
+       console.log("card table")
+    }} */}
 
-                  {/* {if (a[0] == q.correctOnes[0]) {
-                    count = count+1;
-                  } else {
-                    console.log("card table")
-                  }} */}
+        
 
               </div>
             </li>
              )
-           )
-          }
+          )
+        }
 
+
+        
         <button type="submit" disabled={this.state.isButtonDisabled}> Submit Answer </button>
 
        </form>
       </div>
       )
-     }
-   }
-  
-    export default radioButtons
+    }
+  }
+  export default radioButtons

@@ -65,15 +65,15 @@ export default {
   },
 
   saveStudentquiz: function(o) {
-      return axios({
-        method: "post",
-        url: "/studentquiz/",
-        data: o,
-        headers: {
-          Accept:'application/json',
-          'Content-Type': 'multipart/form-data'
-        }
-      });
+      return axios.post("/studentquiz/", o)
+        // method: "post",
+        // url: "/studentquiz/",
+        // data: o,
+        // headers: {
+        //   Accept:'application/json',
+        //   'Content-Type': 'multipart/form-data'
+        // }
+        //});
     },
 };
 
