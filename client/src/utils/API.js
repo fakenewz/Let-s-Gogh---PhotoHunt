@@ -64,11 +64,11 @@ export default {
     return axios.get("logout")
   },
 
-  saveStudentquiz: function(QuizData) {
+  saveStudentquiz: function(o) {
       return axios({
         method: "post",
         url: "/studentquiz/",
-        data: QuizData,
+        data: o,
         headers: {
           Accept:'application/json',
           'Content-Type': 'multipart/form-data'

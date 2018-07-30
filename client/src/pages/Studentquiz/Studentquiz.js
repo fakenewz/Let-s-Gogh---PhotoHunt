@@ -18,7 +18,7 @@ class radioButtons extends Component {
 
     this.handleChange1 = this.handleChange1.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
-    this.handleChange3 = this.handleChange3.bind(this);
+    // this.handleChange3 = this.handleChange3.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -54,15 +54,22 @@ class radioButtons extends Component {
     });
   }
 
-  handleChange3 = (event3) => {
-    this.setState({
-      photo: event3.target.value
-    });
-  }
-
+  // handleChange3 = (event3) => {
+  //   this.setState({
+  //     photo: event3.target.value
+  //   });
+  // }
 
   handleSubmit = event => {
     event.preventDefault();
+
+    if (this.state.answer1 && this.state.answer2) {
+      let quizdata = new FormData();
+      quizdata.set('answer1', this.state.answer1);
+      quizdata.set('answer2', this.state.answer2);
+      // quizdata.set('photo', this.state.photo);
+      quizdata.set('date', this.state.date);
+      quizdata.set('picture', this.fileInput.current.photoFiles);
 
     API.saveStudentquiz({
      answer1: this.state.answer1,
@@ -75,8 +82,7 @@ class radioButtons extends Component {
     )
       .catch(err => console.log(err));
    }
-
-
+  }
 
   render() {
     let questionList = this.state.questions;
@@ -124,6 +130,7 @@ class radioButtons extends Component {
                   onChange={this.handleChange1}
                 />
                 {ques.a4}
+
                 {/* <input type="file"
                   name="coffee"
                   value={ques.a5}
@@ -174,6 +181,11 @@ class radioButtons extends Component {
                   onChange={this.handleChange2}
                 />
                 {q.b4}
+
+          <form action="/upload" enctype="multipart/form-data" method="POST"> 
+            <input type="file" name="photo" />
+            <input type="submit" value="Upload Photo"/>
+          </form>
 
                 {console.log("kittens", fromUser)}
                 {console.log("toads", q.correctOnes)}
