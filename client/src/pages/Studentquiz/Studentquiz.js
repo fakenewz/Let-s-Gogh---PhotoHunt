@@ -169,17 +169,14 @@ class radioButtons extends Component {
 
         {console.log("kittens", fromUser)}
         {console.log("toads", q.correctOnes)}
+          {/*<form action="/upload" enctype="multipart/form-data" method="POST"> 
+            <input type="file" name="photo" />
+            <input type="submit" value="Upload Photo"/>
+          </form>*/}
 
         {console.log("kittens", fromUser[0])}
         {console.log("toads", q.correctOnes[0])}
-
-        {/* {if (a[0] == q.correctOnes[0]) {
-          count = count+1;
-    } else {
-       console.log("card table")
-    }} */}
-
-        
+                
 
               </div>
             </li>
