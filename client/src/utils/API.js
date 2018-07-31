@@ -43,8 +43,8 @@ export default {
   },
 
 
-  // This goes to cloudinary, saved the image and
-  // returns with the required payload.
+  // This goes to Cloudinary, saves the image and
+  // returns with the required payload
 
   saveFileToCloudinary: (fileInfo) => {
     const fileData = new FormData();

@@ -188,11 +188,9 @@ class Admindash extends Component {
               <List>
                 {this.state.quizcode.map(quizcd => (
                   <ListItem key={quizcd._id}>
-                    {/* <Link to={"/musuemquiz/" + quizcd._id}> */}
                       <strong>
-                        {quizcd.question}
+                        {quizcd.code}
                       </strong>
-                    {/* </Link> */}
                     <DeleteBtn onClick={() => this.deleteQuiz(quizcd._id)} />
                   </ListItem>
                 ))}

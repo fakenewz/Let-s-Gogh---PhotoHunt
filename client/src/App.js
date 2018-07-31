@@ -20,7 +20,6 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={Sign_In} />
         <Route exact path="/register" component={Register} />
-        {/* <Route exact path="/login" component={Sign_In} /> */}
         <Route exact path="/logout" component={Logout} />
         <Route exact path="/admindash" component={Admindash}/>
         <Route exact path="/studentquiz" component={Studentquiz}/>

@@ -79,40 +79,8 @@ router.delete('/musuemquiz/:id', teacherController.remove);
 
 
 router.get('/studentquiz/:codeID', teacherController.findByCode)
-
-
-// function compareRoute(req, res) {
-//   db.QuizResults
-//     .create(req.body)
-//     .then(dbModel => res.json(dbModel))
-//     .catch(err => res.status(422).json(err))
-//  }
-
-// router.post('/studentquiz/', compareRoute);
-
-//function testTest(req, res) {
-
-//  const acceptedFilesTypes = [
-//     "image/jpeg",
-//     "image/tiff",
-//     "image/png",
-//     "image/WebP",
-//     "image/JPG"
-//   ];
  
-//  const checkFileType = fileType => {
-//   let safe = false;
-//   for (let type of acceptedFilesTypes) {
-//     console.log(type, fileType);
-//     if (fileType === type) {
-//       safe = true;
-//     }
-//   }
-//   console.log(safe);
-//   return safe;
-//  };
- 
- let storage = multer.diskStorage({
+let storage = multer.diskStorage({
   destination: function (req, file, cb) {
     console.log("file", file)
     cb(null, "/uploads")
@@ -124,49 +92,6 @@ router.get('/studentquiz/:codeID', teacherController.findByCode)
  })
  
  let upload = multer({ storage })
-  // fileFilter: (req, file, next) => {
-  //   console.log("office space", file)
-  //   if (!checkFileType(file.mimetype)) {
-  //     req.fileValidationError = true;
-  //     console.log("Not a Valid File Type");
-  //     return next(null, false, req.fileValidationError);
-  //   } else {
-  //     console.log("File Type Validated");
-  //     next(null, true);
-  //   }
-  // }
- 
- //.single("picture"); 
-
-//     console.log("world", req)
-//     console.log("world peas", req.body)
- 
-//     path = "/public/upload" + req.file.filename;
-  
-//       cloudinary.uploader.upload(
-//       path,
-//       function (result) {
-//         console.log("result", result)
-      
-//       const newQuiz = {
-//         photo: result.url,
-//         date: req.body.date,
-//         answer1: req.body.answer1,
-//         answer2: req.body.answer2,
-//         answer3: req.body.answer3,
-//      };
-
-//      db.QuizResults
-//       .create(newQuiz)
-//       .then(dbModel => res.json(dbModel))
-//       .catch(err => res.status(422).json(err))
-//     })
-   
-//  }
-
-//  router.post('/studentquiz', testTest) 
-
-//  console.log("whatwhat")
  
  router.post('/studentquiz/', function (req, res) {
       

@@ -33,8 +33,6 @@ class radioButtons extends Component {
 
   getData = (codeID) => {
     let stateVar = this.state.questions
-    //console.log("ffffffff", stateVar)
-    //console.log("gggggggg", codeID)
     API.getQuizByCode(codeID)
     .then((res) => {
       console.log(res, 'fetched data')
@@ -64,7 +62,6 @@ class radioButtons extends Component {
      break;
     default: 
       this.setState({ [event3.target.name]: event3.target.value })
-      //console.log ()
     }
   }
 
@@ -89,16 +86,10 @@ class radioButtons extends Component {
         let quizdata = new FormData();
     
           quizdata.append('answer1', answer1); 
-          //console.log("unicorns", answer1)
           quizdata.append('answer2', answer2);
-          //console.log("penguins", answer2)
           quizdata.set('picture', picture);
-         // console.log("narwhals", picture)
-         // console.log("quizData", quizdata)
-          // quizdata.set("answersArray")
         
         API.saveStudentquiz(quizdata)
-        //  answersArray: this.state.answersArray.concat(this.state.answer1, this.state.answer2),})
         .then(() => {
           window.localStorage.clear()
     
@@ -222,10 +213,6 @@ class radioButtons extends Component {
                 name="picture"
                 onChange={this.handleChange3}
               />
-                
-                {/* {this.calcScore(q.correctOnes, fromUser)} */}
-                {/* /{console.log("kittens", fromUser[0])} */}
-                {/* {console.log("toads", q.correctOnes[0])} */}
 
               </div>
             </li>
@@ -240,7 +227,7 @@ class radioButtons extends Component {
         {
           this.state.resultReady 
           ?
-          <p>you scored {this.state.result} out of {this.state.correctAnswers.length}</p>
+          <p>You scored {this.state.result} out of {this.state.correctAnswers.length}!</p>
           :
           null
         }
