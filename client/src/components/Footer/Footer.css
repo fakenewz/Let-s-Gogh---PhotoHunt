@@ -1,15 +1,12 @@
 .footer {
     background-color:#ffce00;
     color: #000000;
-    
-}
-
-.footer span {
-    position: fixed;
+    position: relative;
     left:0;
     bottom:0;
     right:0;
     padding:0px;
-    background: #ffce00;
     text-align:center;
-  }
+    margin-top: 80px;
+    
+}
