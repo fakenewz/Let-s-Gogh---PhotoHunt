@@ -179,7 +179,7 @@ router.get('/studentquiz/:codeID', teacherController.findByCode)
       console.log("!!", result, error)
       
       let newQuiz = {
-        photo: result.url,
+        picture: result.url,
         date: req.body.date,
         answer1: req.body.answer1,
         answer2: req.body.answer2,
