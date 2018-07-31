@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Footer from "../../components/Footer";
-import API from "./../../utils/API"
+import API from "./../../utils/API";
+
+import axios from "axios";
 
 class radioButtons extends Component {
   constructor() {
@@ -13,12 +15,14 @@ class radioButtons extends Component {
       picture: "",
       questions: [],
       isButtonDisabled: false,
+      file: {}
     };
 
     this.handleChange1 = this.handleChange1.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
     this.handleChange3 = this.handleChange3.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleImageUpload = this.handleImageUpload.bind(this);
   }
 
   componentDidMount() {
@@ -29,8 +33,8 @@ class radioButtons extends Component {
 
   getData = (codeID) => {
     let stateVar = this.state.questions
-    console.log("ffffffff", stateVar)
-    console.log("gggggggg", codeID)
+    //console.log("ffffffff", stateVar)
+    //console.log("gggggggg", codeID)
     API.getQuizByCode(codeID)
     .then(res =>
       this.setState({
@@ -54,37 +58,53 @@ class radioButtons extends Component {
 
   handleChange3 = (event3) => {
     switch (event3.target.name) {
-      case 'picture':
-      this.setState({ picture: event3.target.files[0] })
+      case 'picture':  this.handleImageUpload(event3.target.files[0]);
      break;
     default: 
       this.setState({ [event3.target.name]: event3.target.value })
+      //console.log ()
     }
   }
 
-  handleSubmit = event4 => {
-    const { answer1, answer2, picture } = this.state;
-    let quizdata = new FormData();
-
-      quizdata.append('answer1', answer1); 
-      console.log("unicorns", answer1)
-      quizdata.append('answer2', answer2);
-      console.log("penguins", answer2)
-      quizdata.set('picture', picture);
-      console.log("narwhals", picture)
-      console.log("quizData", quizdata)
-      // quizdata.set("answersArray")
-
-    API.saveStudentquiz(quizdata)
-    //  answersArray: this.state.answersArray.concat(this.state.answer1, this.state.answer2),})
-    .then(() => {
-      window.localStorage.clear()
-
-      this.setState({
-        isButtonDisabled: true
-      })
+  handleImageUpload(file) {
+    this.setState({ isButtonDisabled: true})
+    API.saveFileToCloudinary(file)
+    .then((response) =>{
+      this.setState({ picture: response.data.secure_url, isButtonDisabled: false});
     })
-      .catch(err => console.log(err)); 
+    .catch(error => console.log(error, 'nah...error occured'));
+    console.log(this.state);
+  }
+
+  handleSubmit = event4 => {
+    event4.preventDefault();
+      if (this.state.picture !== '') {
+        console.log(this.state, 'i am here now');
+        const { answer1, answer2, picture } = this.state;
+        let quizdata = new FormData();
+    
+          quizdata.append('answer1', answer1); 
+          //console.log("unicorns", answer1)
+          quizdata.append('answer2', answer2);
+          //console.log("penguins", answer2)
+          quizdata.set('picture', picture);
+         // console.log("narwhals", picture)
+         // console.log("quizData", quizdata)
+          // quizdata.set("answersArray")
+        
+        API.saveStudentquiz(quizdata)
+        //  answersArray: this.state.answersArray.concat(this.state.answer1, this.state.answer2),})
+        .then(() => {
+          window.localStorage.clear()
+    
+          this.setState({
+            isButtonDisabled: true
+          })
+        })
+          .catch(err => console.log(err)); 
+      } else {
+        console.log('image not uploaded')
+      }
   }
 
   render() {
@@ -184,9 +204,9 @@ class radioButtons extends Component {
                 name="picture"
                 onChange={this.handleChange3}
               />
-
-                {console.log("kittens", fromUser[0])}
-                {console.log("toads", q.correctOnes[0])}
+                
+                {/* /{console.log("kittens", fromUser[0])} */}
+                {/* {console.log("toads", q.correctOnes[0])} */}
 
               </div>
             </li>
@@ -194,7 +214,7 @@ class radioButtons extends Component {
           )
         }
         
-        <button type="submit" disabled={this.state.isButtonDisabled}> Submit Answer </button>
+        <button disabled={this.state.isButtonDisabled}> Submit Answer </button>
 
        </form>
       </div>

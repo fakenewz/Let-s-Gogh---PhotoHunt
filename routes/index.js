@@ -164,22 +164,10 @@ router.get('/studentquiz/:codeID', teacherController.findByCode)
 
 //  console.log("whatwhat")
  
- router.post('/studentquiz/', upload.single("picture"), function (req, res) {
-
-  console.log("beavers", req.file) 
-//{
-  // Send to Cloudinary:
-  console.log("bugs", req.file.filename);
-  let path = "/uploads/" + req.file.filename;
-  console.log("path", path);
-
-  cloudinary.v2.uploader.upload(
-    path,
-    function (error, result) {
-      console.log("!!", result, error)
+ router.post('/studentquiz/', function (req, res) {
       
       let newQuiz = {
-        photo: result.url,
+        picture: req.body.picture,
         date: req.body.date,
         answer1: req.body.answer1,
         answer2: req.body.answer2,
@@ -190,7 +178,6 @@ router.get('/studentquiz/:codeID', teacherController.findByCode)
       .create(newQuiz)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
-    })
-   })
+    });
 
   module.exports = router;

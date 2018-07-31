@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const cloudinary_url='https://api.cloudinary.com/v1_1/dfdpnpq6l/upload';
+
 export default {
   // Get all
   getCodes: function() {
@@ -38,6 +40,27 @@ export default {
   // Save
   saveQuiz: function(musuemQuizData) {
     return axios.post("/musuemquiz", musuemQuizData);
+  },
+
+
+  // This goes to cloudinary, saved the image and
+  // returns with the required payload.
+
+  saveFileToCloudinary: (fileInfo) => {
+    const fileData = new FormData();
+    fileData.append('file', fileInfo);
+    fileData.append('upload_preset','g8u4bubj');   
+    console.log(fileData)
+   return axios.post(cloudinary_url, 
+    fileData, {
+       headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+        .then((response) => {
+          console.log(response, 'success')
+          return response;
+   })
+   .catch((error) => {
+     console.log(error, 'error');
+   })
   },
 
 
