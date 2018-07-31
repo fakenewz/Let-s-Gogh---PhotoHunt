@@ -80,15 +80,17 @@ handleFormSubmit = event => {
         studentID: this.state.studentID,
     })
     .then(res => {
+      console.log("res", res.data)
+      window.localStorage.setItem( "code", res.data.code )
       this.props.history.push({
         pathname: '/studentquiz/',
-        state: { code: res.data }
+        state: window.localStorage.code
+      })
     })
-    // .catch((error) => {
-    //   console.log("blah blah")
-    //   console.log(error)
-    // })
-   })
+      .catch((error) => {
+      console.log("blah blah")
+      console.log(error)
+    })
   }
     /*******/ 
 

@@ -7,14 +7,14 @@ var studentquizController = require("../controllers/studentquizController")
 const db = require("../models");
 const multer = require("multer");
 
-// const cloudinary = require("cloudinary");
-//   // Cloudinary Configuration
-//   cloudinary.config({
-//     cloud_name: 'dfdpnpq6l',
-//     api_key: '323888751196637',
-//     api_secret: 'jucvaGBBrrvni4mEDXAylf5-2ys'
-// // jucvaGBBrrvni4mEDXAylf5-2ys api full secret key - get an error when fully implemented
-//   });
+const cloudinary = require("cloudinary");
+  // Cloudinary Configuration
+  cloudinary.config({
+    cloud_name: 'dfdpnpq6l',
+    api_key: '323888751196637',
+    api_secret: 'jucvaGBBrrvni4mEDXAylf5-2ys'
+// jucvaGBBrrvni4mEDXAylf5-2ys api full secret key - get an error when fully implemented
+  });
 
 router.get('/register', auth.register);
 
@@ -77,64 +77,120 @@ router.delete('/musuemquiz/:id', teacherController.remove);
 router.get('/studentquiz/:codeID', teacherController.findByCode)
 
 
-function compareRoute(req, res) {
-  db.QuizResults
-    .create(req.body)
-    .then(dbModel => res.json(dbModel))
-    .catch(err => res.status(422).json(err))
- }
-
-router.post('/studentquiz/', compareRoute);
- 
-// const multerConfig = {
-    
-//   storage: multer.diskStorage({
-//    //Setup where the user's file will go
-//    destination: function(req, file, next) {
-//      next(null, '/photoFiles');
-//      },   
-//     filename: function(req, file, next) {
-//       console.log(file);
-//       const ext = file.mimetype.split('/')[1];
-//       next(null, file.fieldname + '-' + Date.now() + '.'+ext);
-//     }
-//   })
+// function compareRoute(req, res) {
+//   db.QuizResults
+//     .create(req.body)
+//     .then(dbModel => res.json(dbModel))
+//     .catch(err => res.status(422).json(err))
 //  }
 
-// let storage;
-// const upload = multer({ storage: storage }); 
+// router.post('/studentquiz/', compareRoute);
 
-// router.post('/upload/', upload.single("picture"), function (req, res, next) {
-//   // Send to Cloudinary:
+//function testTest(req, res) {
 
-//   path = "/photoFiles" + req.file.filename;
-//   cloudinary.uploader.upload(
-//     path,
-//     function (result) {
-//       // Add URL to new quiz object
+//  const acceptedFilesTypes = [
+//     "image/jpeg",
+//     "image/tiff",
+//     "image/png",
+//     "image/WebP",
+//     "image/JPG"
+//   ];
+ 
+//  const checkFileType = fileType => {
+//   let safe = false;
+//   for (let type of acceptedFilesTypes) {
+//     console.log(type, fileType);
+//     if (fileType === type) {
+//       safe = true;
+//     }
+//   }
+//   console.log(safe);
+//   return safe;
+//  };
+ 
+ let storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    console.log("file", file)
+    cb(null, "/uploads")
+  },
+  filename: function (req, file, cb) {
+    console.log("office", file)
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+ })
+ 
+ let upload = multer({ storage })
+  // fileFilter: (req, file, next) => {
+  //   console.log("office space", file)
+  //   if (!checkFileType(file.mimetype)) {
+  //     req.fileValidationError = true;
+  //     console.log("Not a Valid File Type");
+  //     return next(null, false, req.fileValidationError);
+  //   } else {
+  //     console.log("File Type Validated");
+  //     next(null, true);
+  //   }
+  // }
+ 
+ //.single("picture"); 
+
+//     console.log("world", req)
+//     console.log("world peas", req.body)
+ 
+//     path = "/public/upload" + req.file.filename;
+  
+//       cloudinary.uploader.upload(
+//       path,
+//       function (result) {
+//         console.log("result", result)
+      
 //       const newQuiz = {
-//         picture: result.url,
+//         photo: result.url,
 //         date: req.body.date,
-//         code: req.body.code,
-//         question1: req.body.question1,
-//         a1: req.body.a1,
-//         a2: req.body.a2,
-//         a3: req.body.a3,
-//         a4: req.body.a4,
-//         aRight: req.body.aRight,
-//         question2: req.body.question2,
-//         b1: req.body.b1,
-//         b2: req.body.b2,
-//         b3: req.body.b3,
-//         b4: req.body.b4,
-//         bRight: req.body.bRight,
-//         correctOnes: req.body.correctOnes,
-//       };
-//       db.QuizResults
-//         .create(newQuiz)
-//         .then(dbModel => res.json(dbModel))
-//         .catch(err => res.status(422).json(err));
-//     })
-//   })
+//         answer1: req.body.answer1,
+//         answer2: req.body.answer2,
+//         answer3: req.body.answer3,
+//      };
 
-  module.exports = router; 
+//      db.QuizResults
+//       .create(newQuiz)
+//       .then(dbModel => res.json(dbModel))
+//       .catch(err => res.status(422).json(err))
+//     })
+   
+//  }
+
+//  router.post('/studentquiz', testTest) 
+
+//  console.log("whatwhat")
+ 
+ router.post('/studentquiz/', upload.single("picture"), function (req, res) {
+
+  console.log("beavers", req.file) 
+//{
+  // Send to Cloudinary:
+  console.log("bugs", req.file.filename);
+  let path = "/uploads/" + req.file.filename;
+  console.log("path", path);
+
+  cloudinary.v2.uploader.upload(
+    path,
+    function (error, result) {
+      console.log("!!", result, error)
+      
+      let newQuiz = {
+        photo: result.url,
+        date: req.body.date,
+        answer1: req.body.answer1,
+        answer2: req.body.answer2,
+        answer3: req.body.answer3,
+     };
+
+     db.QuizResults
+      .create(newQuiz)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
+    })
+   })
+
+  module.exports = router;
