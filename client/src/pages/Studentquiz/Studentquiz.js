@@ -14,7 +14,10 @@ class radioButtons extends Component {
       picture: "",
       questions: [],
       isButtonDisabled: false,
-      file: {}
+      file: {},
+      correctAnswers: [],
+      result: 0,
+      resultReady:false
     };
 
     this.handleChange1 = this.handleChange1.bind(this);
@@ -33,11 +36,13 @@ class radioButtons extends Component {
     //console.log("ffffffff", stateVar)
     //console.log("gggggggg", codeID)
     API.getQuizByCode(codeID)
-    .then(res =>
+    .then((res) => {
+      console.log(res, 'fetched data')
       this.setState({
         questions: stateVar.concat(res.data),
+        correctAnswers: res.data.correctOnes
       })
-    )
+    })
     .catch(err => console.log(err));
   }
 
@@ -75,8 +80,11 @@ class radioButtons extends Component {
 
   handleSubmit = event4 => {
     event4.preventDefault();
+    const fromUser = this.state.answersArray.concat(this.state.answer1, this.state.answer2);  
+     const result =  this.calcScore(this.state.correctAnswers, fromUser);
+    //  console.log(`you scored ${result} out of ${this.state.correctAnswers.length}`)
+    this.setState({ result })
       if (this.state.picture !== '') {
-        console.log(this.state, 'i am here now');
         const { answer1, answer2, picture } = this.state;
         let quizdata = new FormData();
     
@@ -106,21 +114,22 @@ class radioButtons extends Component {
   
   
   calcScore = (adminAnswers, studentAnswers) => {
-    // const { count } = this.state
+
+    let count = 0;
     for (let i = 0; i < adminAnswers.length; i++) {
         if(adminAnswers[i] === studentAnswers[i]) {
-          this.state.count = this.state.count + 1,
-          console.log("Dracula", this.state.count)
-
-        } else {
-          console.log("Not the same") 
+         count += 1
         }
     }
+    this.setState({
+      resultReady: true
+    });
+    return count;
   }
 
   render() {
     const { answer1, answer2, picture } = this.state;
-    let fromUser = this.state.answersArray.concat(this.state.answer1, this.state.answer2);
+    
 
     return (
       <div>
@@ -214,6 +223,7 @@ class radioButtons extends Component {
                 onChange={this.handleChange3}
               />
                 
+                {/* {this.calcScore(q.correctOnes, fromUser)} */}
                 {/* /{console.log("kittens", fromUser[0])} */}
                 {/* {console.log("toads", q.correctOnes[0])} */}
 
@@ -226,6 +236,14 @@ class radioButtons extends Component {
         <button disabled={this.state.isButtonDisabled}> Submit Answer </button>
 
        </form>
+        
+        {
+          this.state.resultReady 
+          ?
+          <p>you scored {this.state.result} out of {this.state.correctAnswers.length}</p>
+          :
+          null
+        }
       </div>
       )
     } 
