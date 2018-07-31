@@ -24,7 +24,7 @@ app.use(passport.session());
 
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.deserializeUser(User.deserializeUser()); 
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
