@@ -8,6 +8,10 @@ const db = require("../models");
 const multer = require("multer");
 
 const cloudinary = require("cloudinary");
+
+var CLOUDINARY_URL='https://api.cloudinary.com/v1_1/dfdpnpq6l/upload';
+var CLOUDINARY_UPLOAD_PRESET ='g8u4bubj';
+
   // Cloudinary Configuration
   cloudinary.config({
     cloud_name: 'dfdpnpq6l',
@@ -164,7 +168,7 @@ router.get('/studentquiz/:codeID', teacherController.findByCode)
 
 //  console.log("whatwhat")
  
- router.post('/studentquiz/', upload.single("picture"), function (req, res) {
+ router.post('/studentquiz', upload.single("picture"), function (req, res) {
 
   console.log("beavers", req.file) 
 //{
