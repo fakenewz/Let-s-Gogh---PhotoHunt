@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Footer from "../../components/Footer";
 import API from "./../../utils/API";
 
-import axios from "axios";
 
 class radioButtons extends Component {
   constructor() {
@@ -26,10 +25,8 @@ class radioButtons extends Component {
   }
 
   componentDidMount() {
-    // console.log("vvvvvvv", this.props.location)
     this.getData(window.localStorage.code)
   };
-
 
   getData = (codeID) => {
     let stateVar = this.state.questions
@@ -106,11 +103,24 @@ class radioButtons extends Component {
         console.log('image not uploaded')
       }
   }
+  
+  
+  calcScore = (adminAnswers, studentAnswers) => {
+    // const { count } = this.state
+    for (let i = 0; i < adminAnswers.length; i++) {
+        if(adminAnswers[i] === studentAnswers[i]) {
+          this.state.count = this.state.count + 1,
+          console.log("Dracula", this.state.count)
+
+        } else {
+          console.log("Not the same") 
+        }
+    }
+  }
 
   render() {
     const { answer1, answer2, picture } = this.state;
     let fromUser = this.state.answersArray.concat(this.state.answer1, this.state.answer2);
-    let count = 0
 
     return (
       <div>
@@ -199,7 +209,6 @@ class radioButtons extends Component {
                 />
                 {q.b4}
 
-
               <input type="file"
                 name="picture"
                 onChange={this.handleChange3}
@@ -222,3 +231,4 @@ class radioButtons extends Component {
     } 
   }
   export default radioButtons
+
