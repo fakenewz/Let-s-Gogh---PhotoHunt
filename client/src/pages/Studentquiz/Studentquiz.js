@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Footer from "../../components/Footer";
-import API from "./../../utils/API"
+import API from "./../../utils/API";
+// import ReactDom from 'react-dom';
+// import Popup from 'react-popup';
 
 class radioButtons extends Component {
   constructor() {
@@ -13,6 +15,7 @@ class radioButtons extends Component {
       picture: "",
       questions: [],
       isButtonDisabled: false,
+      count: 1
     };
 
     this.handleChange1 = this.handleChange1.bind(this);
@@ -22,10 +25,8 @@ class radioButtons extends Component {
   }
 
   componentDidMount() {
-    // console.log("vvvvvvv", this.props.location)
     this.getData(window.localStorage.code)
   };
-
 
   getData = (codeID) => {
     let stateVar = this.state.questions
@@ -73,10 +74,9 @@ class radioButtons extends Component {
       quizdata.set('picture', picture);
       console.log("narwhals", picture)
       console.log("quizData", quizdata)
-      // quizdata.set("answersArray")
+      quizdata.append("answersArray", this.state.answersArray.concat(this.state.answer1, this.state.answer2))
 
     API.saveStudentquiz(quizdata)
-    //  answersArray: this.state.answersArray.concat(this.state.answer1, this.state.answer2),})
     .then(() => {
       window.localStorage.clear()
 
@@ -86,11 +86,24 @@ class radioButtons extends Component {
     })
       .catch(err => console.log(err)); 
   }
+  
+  
+  calcScore = (adminAnswers, studentAnswers) => {
+    // const { count } = this.state
+    for (let i = 0; i < adminAnswers.length; i++) {
+        if(adminAnswers[i] === studentAnswers[i]) {
+          this.state.count = this.state.count + 1,
+          console.log("Dracula", this.state.count)
+
+        } else {
+          console.log("Not the same") 
+        }
+    }
+  }
 
   render() {
     const { answer1, answer2, picture } = this.state;
     let fromUser = this.state.answersArray.concat(this.state.answer1, this.state.answer2);
-    let count = 0
 
     return (
       <div>
@@ -179,14 +192,17 @@ class radioButtons extends Component {
                 />
                 {q.b4}
 
-
               <input type="file"
                 name="picture"
                 onChange={this.handleChange3}
               />
 
-                {console.log("kittens", fromUser[0])}
-                {console.log("toads", q.correctOnes[0])}
+                {console.log("broomsticks", fromUser)}
+                {console.log("toads", q.correctOnes)}
+
+                {/* return the score */}
+                {this.calcScore(q.correctOnes, fromUser)}
+                {this.state.count / 2}
 
               </div>
             </li>
@@ -194,6 +210,10 @@ class radioButtons extends Component {
           )
         }
         
+        {/* <Popup trigger={<button> Button </button>} position="right center">
+          <div>TESTING</div>
+        </Popup> */}
+
         <button type="submit" disabled={this.state.isButtonDisabled}> Submit Answer </button>
 
        </form>
@@ -202,3 +222,4 @@ class radioButtons extends Component {
     } 
   }
   export default radioButtons
+
